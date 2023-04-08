@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login</title>
+    <title>Login</title>
 </head>
 <body>
-	<h1>Login</h1>
-	<form action="login.php" method="POST">
-		<label>Username:</label>
-		<input type="text" name="username"><br><br>
-		<label>Password:</label>
-		<input type="password" name="password"><br><br>
-		<input type="submit" value="Login">
-	</form>
-	<p>Don't have an account? <a href="register.php">Register</a></p>
+    <p>Don't have an account? <a href="register.php">Register</a></p>
+    <form action="login.php" method="POST">
+    <div class='box'>
+        <div class='container'>
+            <div class="top-header">
+                <span>Login here!</span>
+                <header>Login</header>
+            </div>
+
+            <div class="input-field">
+                    <input type="text" name="username" class='input' placeholder='Username...' required><br><br>
+            </div>
+
+            <div class="input-field">
+                    <input type="password" name="password" class='input' placeholder='Password...' required><br><br>
+            </div>
+
+            <div class="input-field">
+                    <input type="submit" value="Login" class='submit'>
+            </div>
+        </div>
+    </div>
+    </form>
 </body>
 </html>
