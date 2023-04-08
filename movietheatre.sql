@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 08, 2023 at 12:18 AM
+-- Generation Time: Apr 08, 2023 at 12:33 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -29,19 +29,21 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
+  `AccID` int NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
   `Fname` varchar(255) NOT NULL,
   `Lname` varchar(255) NOT NULL,
-  `DOB` varchar(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `DOB` varchar(10) NOT NULL,
+  PRIMARY KEY (`AccID`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`username`, `password`, `Fname`, `Lname`, `DOB`) VALUES
-('nave', '123', 'evan', 'wong', '31/07/2002');
+INSERT INTO `user` (`AccID`, `username`, `password`, `Fname`, `Lname`, `DOB`) VALUES
+(1, 'nave', '123', 'evan', 'wong', '31/07/2002');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
