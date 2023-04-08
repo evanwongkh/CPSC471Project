@@ -20,8 +20,8 @@ if (!$conn) {
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$hashedPassword = "SELECT password FROM user WHERE username = '$username'";
-$result = $conn->query($hashedPassword);
+$sql = "SELECT * FROM user WHERE username = '$username'";
+$result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // Retrieve the hashed password
@@ -32,6 +32,7 @@ if ($result->num_rows > 0) {
 if (password_verify($password, $hashedPasswordFromDatabase)) {
 	echo "Password is valid!";
 	$_SESSION['username'] = $username;
+	$_SESSION['AccID'] = $row["AccID"];
 	header("Location: dashboard.php");
 	exit();
 } else {
