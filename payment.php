@@ -1,4 +1,3 @@
-<!-- 
 <?php
 session_start();
 
@@ -17,29 +16,17 @@ $conn = mysqli_connect($servername, $username, $password, $database);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
-$time = $_GET['time'];
-$theatre_id = $_GET['theatre_id'];
 $AccID = $_SESSION['AccID'];
+$time = $_GET['time']; 
+$theatreNo = $_GET['theatreNo']; 
 
-// Get the movie ID and title from the movie table
-$sql = "SELECT MovieID, Title FROM movie WHERE MovieID IN (SELECT MovieID FROM theatre WHERE theatreNo=$theatre_id)";
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-	$row = mysqli_fetch_assoc($result);
-	$movie_id = $row['MovieID'];
-	$movie_title = $row['Title'];
-} 
-else {
-	echo "Movie not found for this theatre.";
-	exit();
-}
 
 if (isset($_POST['submit'])) {
     $cardNumber = $_POST['cardNumber'];
     $expiration = $_POST['expiration'];
     $cvv = $_POST['cvv'];
+    $theatreNo = $_POST['theatreNo'];
+    $time = $_POST['time'];
 
     // Validate payment information
     if (!is_numeric($cardNumber) || strlen($cardNumber) != 16) {
@@ -49,17 +36,9 @@ if (isset($_POST['submit'])) {
     } elseif (!is_numeric($cvv) || strlen($cvv) != 3) {
         $error = "Invalid CVV.";
     } else {
-        // Payment successful, create ticket
-
-        $sql = "INSERT INTO ticket (AccID, movieID, time) VALUES ($AccID, $movie_id, '$time')";
-
-        if (mysqli_query($conn, $sql)) {
-            // Ticket created successfully, redirect to ticket page
-            header("Location: ticket.php");
-            exit();
-        } else {
-            $error = "Error creating ticket: " . mysqli_error($conn);
-        }
+        // Payment successful, redirect to ticket page
+        header("Location: ticket.php?theatreNo=$theatreNo&time=$time");
+        exit();
     }
 }
 
@@ -77,6 +56,8 @@ mysqli_close($conn);
     <h3>Payment Information</h3>
     <?php if (isset($error)) echo "<p style='color:red'>$error</p>" ?>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <input type="hidden" name="theatreNo" value="<?php echo $theatreNo; ?>">
+        <input type="hidden" name="time" value="<?php echo $time; ?>">
         <label for="cardNumber">Card Number:</label>
         <input type="text" name="cardNumber" id="cardNumber" required>
         <br>
@@ -90,4 +71,4 @@ mysqli_close($conn);
     </form>
 </body>
 
-</html> -->
+</html>

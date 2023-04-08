@@ -55,7 +55,7 @@ if (mysqli_num_rows($result) > 0) {
 		echo "<ul>";
 		while ($row = mysqli_fetch_assoc($result)) {
             $time = $row['time'];
-			echo "<li><a href='ticket.php?theatreNo=$theatreNo&time=$time'>" . $row['time'] . "</a></li>";
+			echo "<li><a href='payment.php?theatreNo=$theatreNo&time=$time'>" . $row['time'] . "</a></li>";
 		}
 		echo "</ul>";
 	} else {
