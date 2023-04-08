@@ -16,6 +16,7 @@ if (!$conn) {
 // Get the user's input
 $username = $_POST['username'];
 $password = $_POST['password'];
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 $fname = $_POST['fname'];
 $lname = $_POST['lname'];
 $dob = $_POST['DOB'];
@@ -29,7 +30,7 @@ if (mysqli_num_rows($result) > 0) {
 	echo "Username is already taken.";
 } else {
 	// Insert the new user into the database
-	$sql = "INSERT INTO user (username, password, Fname, Lname, DOB) VALUES ('$username', '$password', '$fname', '$lname', '$dob')";
+	$sql = "INSERT INTO user (username, password, Fname, Lname, DOB) VALUES ('$username', '$hashedPassword', '$fname', '$lname', '$dob')";
 	mysqli_query($conn, $sql);
 
 	// Redirect the user to the login page

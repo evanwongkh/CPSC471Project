@@ -20,17 +20,22 @@ if (!$conn) {
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-// Validate the user's credentials
-$sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
-$result = mysqli_query($conn, $sql);
+$hashedPassword = "SELECT password FROM user WHERE username = '$username'";
+$result = $conn->query($hashedPassword);
 
-if (mysqli_num_rows($result) == 1) {
-	// The user is authenticated
+if ($result->num_rows > 0) {
+    // Retrieve the hashed password
+    $row = $result->fetch_assoc();
+    $hashedPasswordFromDatabase = $row["password"];
+}
+
+if (password_verify($password, $hashedPasswordFromDatabase)) {
+	echo "Password is valid!";
 	$_SESSION['username'] = $username;
 	header("Location: dashboard.php");
 	exit();
 } else {
-	// The user is not authenticated
-	echo "Invalid username or password.";
+	echo "Password is invalid!";
 }
+
 ?>
