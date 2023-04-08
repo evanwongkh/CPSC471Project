@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 08, 2023 at 06:19 AM
+-- Generation Time: Apr 08, 2023 at 07:12 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -228,14 +228,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `DOB` varchar(10) NOT NULL,
   `admin` tinyint(1) NOT NULL,
   PRIMARY KEY (`AccID`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`AccID`, `username`, `password`, `Fname`, `Lname`, `DOB`, `admin`) VALUES
-(1, 'admin', 'admin', 'evan', 'tony', 'johnny', 1);
+(1, 'admin', 'admin', 'evan', 'tony', 'johnny', 1),
+(2, 'nave', '$2y$10$6FptFabdBqxSjgb7Di159ODbQCWefLfKgys.7wszqMPPtK/FmwASK', 'evan', 'wong', '31/07/2002', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
