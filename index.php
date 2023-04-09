@@ -108,12 +108,12 @@
 	}
 
 	.page{
-		padding-top: 150px;
+		padding-top: 25vh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		min-height: 10vh;
-		padding-bottom: 320px;
+		padding-bottom: 30vh;
 	}
 
 	.containerBottom{
@@ -167,7 +167,7 @@
 	<div class='page'>
 		<div class='container'>
 			<div class="top-header">
-				<span>Welcome!</span>
+				<span>REEL</span>
 				<header>Login</header>
 
 			</div>

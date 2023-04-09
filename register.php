@@ -78,6 +78,8 @@
 		background: rgba(255, 255, 255, 0.7);
 		font-size: 20px;
 		cursor: pointer;
+		margin-left: 2rem;
+		margin-top: 2rem;
 		transition: .2s;
 	}
 
@@ -127,12 +129,12 @@
 	}
 
 	.page{
-		padding-top: 150px;
+		padding-top: 10vh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		min-height: 10vh;
-		padding-bottom: 320px;
+		padding-bottom: 27vh;
 	}
 
 	.containerBottom{
