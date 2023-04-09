@@ -57,15 +57,17 @@ if (!isset($_SESSION['username'])) {
 		justify-content: center;
 		align-items: center;
 		margin-left: 6rem;
-		padding-top: 1vh;
+		padding-top: 0.1vh;
+		text-decoration: none;
     }
 
 	.menu{
 		width: 5rem;
 		height: 100vh;
 		position: fixed;
-		background-color: #0c000f;
+		background-color: #1e003f;
 		transition: 0.2s ease;
+		z-index: 1;
 	}
 
 	.menuBar{
@@ -151,12 +153,156 @@ if (!isset($_SESSION['username'])) {
 		margin-bottom: 1rem;
 		text-align: center;
 		justify-content: center;
-		background: black;
+		background: #15002c;
 		color: black;
 		font-size: 50px;
 		letter-spacing: 10px;
 		width: 100%;
 	}
+
+	.bodyslider{
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+		width: 100%;
+		height: 85vh;
+	}
+
+	.imagecontainer {
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+		background: transparent;
+		width: 100%;
+		height: 85vh;
+		padding-bottom: 20vh;
+	}
+
+	.imageslider{
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 600px;
+		left: 0;
+		transition: 0.6s;
+		z-index: 0;
+	}
+	
+	.imagediv {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 20px;
+		
+	}
+
+	.img{
+		position: relative;
+		width: 250px;
+		height: 380px;
+		transition: 0.6s;
+		
+	}
+
+	.button {
+		position: absolute;
+		width: 250px;
+		height: 380px;
+		transition: 0.6s;
+		background-color: transparent;
+	}
+
+	#imagespan1:target ~ .imageslider #img1{
+		width:  400px;
+		height: 610px;
+		background: transparent;
+	}
+	
+	#imagespan1:target ~.imageslider #button-1{
+		width:400px;
+		height: 610px;
+		background-color: transparent;
+	}
+
+	#imagespan2:target ~ .imageslider #img2{
+		width:  400px;
+		height: 610px;
+		background: transparent;
+	}
+
+	#imagespan2:target ~.imageslider #button-2{
+		width:400px;
+		height: 610px;
+		background-color: transparent;
+	}
+
+	#imagespan3:target ~ .imageslider #img3{
+		width:  400px;
+		height: 610px;
+		background: transparent;
+	}
+
+	#imagespan3:target ~.imageslider #button-3{
+		width:400px;
+		height: 610px;
+		background-color: transparent;
+	}
+
+	#imagespan4:target ~ .imageslider #img4{
+		width:  400px;
+		height: 610px;
+		background: transparent;
+	}
+
+	#imagespan4:target ~.imageslider #button-4{
+		width:400px;
+		height: 610px;
+		background-color: transparent;
+	}
+	
+	#imagespan5:target ~ .imageslider #img5{
+		width:  400px;
+		height: 610px;
+		background: transparent;
+	}
+
+	
+	#imagespan5:target ~.imageslider #button-5{
+		width:400px;
+		height: 610px;
+		background-color: transparent;
+	}
+
+	.movieTitle {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		flex-wrap: wrap;
+		font-size: 30px;
+		padding-top: 4vh;
+	}
+
+	.movieTitle a {
+		text-decoration: none;
+		color: #911fff;
+		margin: 0 20px; 
+	}
+
+	.regText{
+		padding-top: 2vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 50px;
+	}
+
+	.h1{
+		text-align: right;
+	}
+
+	
 
 </style>
 
@@ -216,15 +362,12 @@ if (!isset($_SESSION['username'])) {
 	</nav>
 
     <div class="unique">
-		<h1>Welcome, <?php echo $_SESSION['username']; ?></h1>
-		<p>You are now logged in to the dashboard.</p>
 
-    </div>
+	<div class="regText">
+		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
+	</div>
 
-</body>
-</html>
-
-<?php
+		<?php
 
 // Database credentials
 $servername = "localhost";
@@ -243,7 +386,7 @@ $sql = "SELECT * FROM movie";
 $result = mysqli_query($conn, $sql);
 ?>
 
-<div style="text-align: center;" class='unique'>
+<div class='movieTitle'>
 <?php
 // Check if there are any results
 while ($row = mysqli_fetch_assoc($result)) {
@@ -253,3 +396,42 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 ?>
 </div>
+
+	<div class="bodyslider">
+  	<div class="imagecontainer">
+    <span class="imagespan" id="imagespan1"></span>
+    <span class="imagespan" id="imagespan2"></span>
+    <span class="imagespan" id="imagespan3"></span>
+    <span class="imagespan" id="imagespan4"></span>
+    <span class="imagespan" id="imagespan5"></span>
+
+    <div class="imageslider">
+        <div class="imagediv" id="slide-1">
+          <img src="https://lh3.googleusercontent.com/pw/AMWts8ATiJZRorNbcoWPUrzffib8NuZ31ZYNRefF7vw80GzKtQzCod-1Fr6ErievEoFePr3bTGl1CfBK66twS2j4YxB0EwUv4Xi5_cIGhrG6HzSWfrE1UN-NFxPZGzcd0EibxxTKZq9f0TBnECMsYHByJb70=w550-h870-s-no?authuser=0" alt="image1" class="img" id="img1" style="border-radius: 5%;">
+          <a href="#imagespan1" class="button" id="button-1" ></a>
+        </div>
+        <div class="imagediv" id="slide-2">
+          <img src="https://lh3.googleusercontent.com/pw/AMWts8D8BzZGU5PiCY1PgiMff4eAR68MfB-zv149P1h3i2td3tF5TRDtqCnduxnT2nfA-VO2xw_dmAv0GOuO-oZu5b25vbWvUOgJ3c8woB15YtVrczgZ5bEFw0s09p52GZV0GyKK1LPhneLI6m2377-QwICi=w696-h870-s-no?authuser=0" alt="image2" class="img" id="img2" style="border-radius: 5%;">
+          <a href="#imagespan2" class="button" id="button-2" ></a>
+        </div>
+        <div class="imagediv" id="slide-3">
+          <img src="https://lh3.googleusercontent.com/pw/AMWts8AOzGAdTb0olfzfUywJexUzokiFO0596zSZwD8-dED4jD36m2mJKnc_uKVVwb0wLEZCpY-IuLCMBDP21FQ-WFdOthOTK2GH6uTpJi4OJx4PiBHabqz9heXsEhpkAcUx7Q9VdA7uvlwheqanT48REofp=w588-h870-s-no?authuser=0" alt="image3" class="img" id="img3" style="border-radius: 5%;">
+          <a href="#imagespan3" class="button" id="button-3" ></a>
+        </div>
+        <div class="imagediv" id="slide-4">
+          <img src="https://lh3.googleusercontent.com/pw/AMWts8BS9mBSJpHZICQ7nrEZ98QuNQT6KaaqS_GFMMVayEnwZA0FH4V96G6XFeznGSjpWgDiOK8lZ47AQMIvJM8s825DA6t3XyM3e2oP4GkJ41zBKlBC33Sdwh9wXNnWmyqantDp_R8xAxo6VV4uUkNy8TMs=w588-h870-s-no?authuser=0" alt="image4" class="img" id="img4" style="border-radius: 5%;">
+          <a href="#imagespan4" class="button" id="button-4" ></a>
+        </div>
+        <div class="imagediv" id="slide-5">
+          <img src="https://lh3.googleusercontent.com/pw/AMWts8C3nUN6cGx9zM-UfLd6vaMI81i7zOUXXtDym5rQkndxf-H2J0v1XPWCyHcHBoRUahsQLbsQ5zBMby8O2shaguHSTph4qnaukLKUlHpcUPO9P2sK9OdT73Txg_HOH19CR-bkwVPio7UtNyPkxwAzKTN-=w550-h870-s-no?authuser=0" alt="image5" class="img" id="img5" style="border-radius: 5%;">
+          <a href="#imagespan5" class="button" id="button-5" ></a>
+        </div>              
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>
+
+
