@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 08, 2023 at 07:12 AM
+-- Generation Time: Apr 10, 2023 at 12:54 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -64,7 +64,18 @@ CREATE TABLE IF NOT EXISTS `food` (
   `Price` varchar(50) NOT NULL,
   PRIMARY KEY (`OrderNumber`),
   KEY `AccID` (`AccID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `food`
+--
+
+INSERT INTO `food` (`OrderNumber`, `AccID`, `Name`, `Price`) VALUES
+(6, 3, 'Pizza', '10'),
+(5, 3, 'Burger', '10'),
+(7, 3, 'Pizza', '10'),
+(8, 3, 'Burger', '10'),
+(9, 2, 'Burger', '10');
 
 -- --------------------------------------------------------
 
@@ -208,9 +219,18 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `AccID` int NOT NULL,
   `time` varchar(50) NOT NULL,
   `price` varchar(50) NOT NULL,
+  `movieTitle` varchar(255) NOT NULL,
   PRIMARY KEY (`ticket_id`,`AccID`),
   KEY `AccID` (`AccID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `ticket`
+--
+
+INSERT INTO `ticket` (`ticket_id`, `AccID`, `time`, `price`, `movieTitle`) VALUES
+(23, 2, '3:00PM', '', 'Super Mario Bros. Movie, The'),
+(22, 2, '12:00PM', '', 'Dungeons & Dragons: Honor Among Thieves');
 
 -- --------------------------------------------------------
 
@@ -228,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `DOB` varchar(10) NOT NULL,
   `admin` tinyint(1) NOT NULL,
   PRIMARY KEY (`AccID`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `user`
@@ -236,7 +256,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`AccID`, `username`, `password`, `Fname`, `Lname`, `DOB`, `admin`) VALUES
 (1, 'admin', 'admin', 'evan', 'tony', 'johnny', 1),
-(2, 'nave', '$2y$10$6FptFabdBqxSjgb7Di159ODbQCWefLfKgys.7wszqMPPtK/FmwASK', 'evan', 'wong', '31/07/2002', 1);
+(2, 'nave', '$2y$10$6FptFabdBqxSjgb7Di159ODbQCWefLfKgys.7wszqMPPtK/FmwASK', 'evan', 'wong', '31/07/2002', 1),
+(3, 'test', '$2y$10$ILRjy0TNCX3SnrolO5AL2u/IFX1uqquPUnFL5VF9NvYtSlJbph8oi', 'test', 'test', '09/04/2023', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
