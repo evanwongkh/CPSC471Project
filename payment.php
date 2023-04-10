@@ -36,9 +36,15 @@ if (isset($_POST['submit'])) {
     } elseif (!is_numeric($cvv) || strlen($cvv) != 3) {
         $error = "Invalid CVV.";
     } else {
-        // Payment successful, redirect to ticket page
-        header("Location: ticket.php?theatreNo=$theatreNo&time=$time");
-        exit();
+        // Payment successful, insert payment information into customer table
+        $sql = "INSERT INTO customer (AccID, card_number, expiration, cvv) VALUES ('$AccID', '$cardNumber', '$expiration', '$cvv')";
+        if (mysqli_query($conn, $sql)) {
+            // Redirect to ticket page
+            header("Location: ticket.php?theatreNo=$theatreNo&time=$time");
+            exit();
+        } else {
+            $error = "Error inserting payment information: " . mysqli_error($conn);
+        }
     }
 }
 

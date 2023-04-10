@@ -233,9 +233,10 @@ if (!$conn) {
 
     <div class="unique">
 
-	<div class="regText">
+	<!-- <div class="regText">
 		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
-	</div>
+	</div> -->
+	<br>
 	<?php
 		// Get the time and theatre ID from the URL parameter
 		$time = $_GET['time'];
