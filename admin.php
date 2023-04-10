@@ -56,12 +56,12 @@ if (isset($_POST['submit_theatre'])) {
 }
 
 // Add showtime to database
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_showtime'])) {
-    $theatre_no = mysqli_real_escape_string($conn, $_POST['theatre_no']);
+if (isset($_POST['add_showtime'])) {    
+    $theatreNo = mysqli_real_escape_string($conn, $_POST['theatreNo']);
     $time = mysqli_real_escape_string($conn, $_POST['time']);
-    
+    $convertedTime = date('h:i A', strtotime($time));
     // Insert the showtime into the database
-    $sql = "INSERT INTO showtimes (theatre_no, time) VALUES ('$theatre_no', '$time')";
+    $sql = "INSERT INTO showtimes (theatreNo, time) VALUES ('$theatreNo', '$convertedTime')";
     if (mysqli_query($conn, $sql)) {
         echo "<p>Showtime added successfully.</p>";
     } else {
@@ -83,6 +83,13 @@ if (isset($_POST['delete_theatre'])) {
     mysqli_query($conn, $sql);
 }
 
+// Delete showtime from database
+if (isset($_POST['delete_showtime'])) {
+    $showtimeNo = $_POST['showtimeNo'];
+    $sql = "DELETE FROM showtimes WHERE showtimeNo=$showtimeNo";
+    mysqli_query($conn, $sql);
+}
+
 // Retrieve movies from database
 $sql = "SELECT * FROM movie";
 $movie_result = mysqli_query($conn, $sql);
@@ -90,6 +97,9 @@ $movie_result = mysqli_query($conn, $sql);
 // Retrieve theatres from database
 $sql = "SELECT * FROM theatre";
 $theatre_result = mysqli_query($conn, $sql);
+
+$sql = "SELECT * FROM showtimes";
+$showtime_result = mysqli_query($conn, $sql);
 
 mysqli_close($conn);
 ?>
@@ -129,11 +139,11 @@ mysqli_close($conn);
 
     <h4>Add Showtime</h4>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <label for="theatre_no">Theatre Number:</label>
-        <input type="text" name="theatre_no" required>
+        <label for="theatreNo">Theatre Number:</label>
+        <input type="text" name="theatreNo" required>
         <br><br>
         <label for="time">Time:</label>
-        <input type="datetime-local" name="time" required>
+        <input type="time" name="time" required>
         <br><br>
         <input type="submit" name="add_showtime" value="Add Showtime">
     </form>
@@ -188,6 +198,38 @@ mysqli_close($conn);
             <?php endwhile; ?>
         </tbody>
     </table>
+
+    <h4>Showtimes</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Showtime Number</th>
+                <th>Theatre Number</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while ($row = mysqli_fetch_assoc($showtime_result)) : ?>
+                <tr>
+                    <td><?php echo $row['showtimeNo']; ?></td>
+                    <td><?php echo $row['theatreNo']; ?></td>
+                    <td>
+                        <?php 
+                            $time = date("h:i A", strtotime($row['time'])); 
+                            echo $time;
+                        ?>
+                    </td>
+                    <td>
+                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <input type="hidden" name="showtimeNo" value="<?php echo $row['showtimeNo']; ?>">
+                            <input type="submit" name="delete_showtime" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+
 </body>
 
 </html>

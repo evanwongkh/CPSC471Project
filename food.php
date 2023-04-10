@@ -20,9 +20,18 @@ if (!$conn) {
 $AccID = $_SESSION['AccID'];
 
 if (isset($_POST['submit'])) {
+
+    $food_items = array(
+        "Popcorn" => 7.00,
+        "Soda" => 5.00,
+        "Candy" => 4.00,
+        "Nachos" => 7.00,
+        "Hot Dog" => 5.00
+    );
+
     $name = $_POST['food'];
     $quantity = $_POST['quantity'];
-    $price = $quantity * 10;
+    $price = $quantity * $food_items[$name];
 
     // Insert order into database
     $sql = "INSERT INTO food (AccID, name, price) VALUES ('$AccID', '$name', '$price')";
@@ -271,10 +280,11 @@ mysqli_close($conn);
         <label for="food">Food Item:</label>
         <select name="food" id="food" required>
             <option value="">--Select--</option>
-            <option value="Burger">Burger</option>
-            <option value="Pizza">Pizza</option>
-            <option value="Fries">Fries</option>
-            <option value="Salad">Salad</option>
+            <option value="Popcorn">Popcorn ($7.00)</option>
+            <option value="Soda">Soda ($5.00)</option>
+            <option value="Candy">Candy ($4.00)</option>
+            <option value="Nachos">Nachos ($7.00)</option>
+            <option value="Hot Dog">Hot Dog ($5.00)</option>
         </select>
         <br>
         <label for="quantity">Quantity:</label>
