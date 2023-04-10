@@ -32,15 +32,18 @@ if (isset($_POST['submit'])) {
     $name = $_POST['food'];
     $quantity = $_POST['quantity'];
     $price = $quantity * $food_items[$name];
-
+	// Redirect to foodpayment.php
+	header("Location: foodpayment.php?AccID=$AccID&name=$name&price=$price");
     // Insert order into database
-    $sql = "INSERT INTO food (AccID, name, price) VALUES ('$AccID', '$name', '$price')";
+    // $sql = "INSERT INTO food (AccID, name, price) VALUES ('$AccID', '$name', '$price')";
 
-    if (mysqli_query($conn, $sql)) {
-        $message = "Order placed successfully.";
-    } else {
-        $error = "Error placing order: " . mysqli_error($conn);
-    }
+    // if (mysqli_query($conn, $sql)) {
+	// 	// Redirect to foodpayment.php
+    //     header("Location: foodpayment.php?AccID=$AccID&name-$name&price=$price");
+    //     // $message = "Order placed successfully.";
+    // } else {
+    //     $error = "Error placing order: " . mysqli_error($conn);
+    // }
 }
 
 if (isset($_POST['cancel'])) {
@@ -294,7 +297,7 @@ mysqli_close($conn);
     </form>
 
     <h3>Ordered Food</h3>
-    <table>
+    <table border="1">
         <thead>
             <tr>
                 <th>ID</th>

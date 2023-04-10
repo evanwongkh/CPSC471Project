@@ -26,8 +26,8 @@ $result = mysqli_query($conn, $sql);
 // Display discount data to user
 
 if (mysqli_num_rows($result) > 0) {
-    echo "<table>
-            <tr>
+    echo "<table border=\"1\">";
+            echo "<tr>
                 <th>Discount ID</th>
                 <th>Discount Name</th>
                 <th>Discount Percentage</th>

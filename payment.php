@@ -289,7 +289,7 @@ mysqli_close($conn);
         <label for="cvv">CVV:</label>
         <input type="text" name="cvv" id="cvv" required>
         <br>
-        <input type="submit" name="submit" value="Pay">
+        <input type="submit" name="submit" value="Pay $10">
     </form>
 
 </div>

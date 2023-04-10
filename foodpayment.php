@@ -1,35 +1,69 @@
 <?php
-// Start the session
 session_start();
 
-// Check if the user is logged in
 if (!isset($_SESSION['username'])) {
-	header("Location: index.php");
-	exit();
+    header("Location: index.php");
+    exit();
 }
 
-// Database credentials
 $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "movietheatre";
 
-// Create a connection to the database
 $conn = mysqli_connect($servername, $username, $password, $database);
 
 if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
+$AccID = $_SESSION['AccID'];
+$name = $_GET['name'];
+$price = $_GET['price']; 
+
+
+if (isset($_POST['submit'])) {
+    $cardNumber = $_POST['cardNumber'];
+    $expiration = $_POST['expiration'];
+    $cvv = $_POST['cvv'];
+    $name = $_POST['name'];
+    $price = $_POST['price'];
+
+	
+    // Validate payment information
+    if (!is_numeric($cardNumber) || strlen($cardNumber) != 16) {
+        $error = "Invalid card number.";
+    } elseif (!preg_match("/^\d{2}\/\d{2}$/", $expiration)) {
+        $error = "Invalid expiration date.";
+    } elseif (!is_numeric($cvv) || strlen($cvv) != 3) {
+        $error = "Invalid CVV.";
+    } else {
+        // Payment successful, insert payment information into customer table
+        $sql = "INSERT IGNORE INTO customer (AccID, card_number, expiration, cvv) VALUES ('$AccID', '$cardNumber', '$expiration', '$cvv');";
+        $sql .= "INSERT INTO food (AccID, Name, Price) VALUES ('$AccID', '$name', '$price')";
+    
+        if (mysqli_multi_query($conn, $sql)) {
+            // Redirect to ticket page
+            header("Location: food.php");
+            exit();
+        } else {
+            $error = "Error inserting payment information: " . mysqli_error($conn);
+        }
+    }
+}
+
+mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
-	<title>Ticket Receipt</title>
+
+    <title>Payment</title>
 </head>
 
 <style>
@@ -233,73 +267,30 @@ if (!$conn) {
 
     <div class="unique">
 
-	<!-- <div class="regText">
+	<div class="regText">
 		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
-	</div> -->
-	<br>
-	<?php
-		// Get the time and theatre ID from the URL parameter
-		$time = $_GET['time'];
-		$theatre_id = $_GET['theatreNo'];
-		$showtimeNo = $_GET['showtimeNo'];
-		$seat = $_GET['seat'];
+	</div>
 
-		// Get the movie ID and title from the movie table
-		$sql = "SELECT MovieID, Title FROM movie WHERE MovieID IN (SELECT MovieID FROM theatre WHERE theatreNo=$theatre_id)";
-		$result = mysqli_query($conn, $sql);
+    <h3>Payment Information</h3>
+    <?php if (isset($error)) echo "<p style='color:red'>$error</p>" ?>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <input type="hidden" name="name" value="<?php echo $name; ?>">
+        <input type="hidden" name="price" value="<?php echo $price; ?>">
 
-		if (mysqli_num_rows($result) > 0) {
-			$row = mysqli_fetch_assoc($result);
-			$movie_id = $row['MovieID'];
-			$movie_title = $row['Title'];
-		} else {
-			echo "Movie not found for this theatre.";
-			exit();
-		}
-
-		// Get the accID from the user table
-		$username = $_SESSION['username'];
-		$sql = "SELECT AccID FROM user WHERE username='$username'";
-		$result = mysqli_query($conn, $sql);
-		if ($result === false) {
-			die("Error executing query: " . mysqli_error($conn));
-		}
-		if (mysqli_num_rows($result) > 0) {
-			$row = mysqli_fetch_assoc($result);
-			$acc_id = $row['AccID'];
-		} else {
-			echo "User not found.";
-			exit();
-		}
-
-		// Insert the ticket information into the Ticket table
-		$sql = "INSERT INTO ticket (AccID, showtimeNo, movieTitle, seat, time) VALUES ('$acc_id', '$showtimeNo', '$movie_title', '$seat', '$time')";
-		if (mysqli_query($conn, $sql)) {
-			echo "Ticket booked successfully.";
-		} else {
-			echo "Error booking ticket: " . mysqli_error($conn);
-		}
-
-		mysqli_close($conn);
-	?>
-
-	<h2>Ticket Receipt</h2>
-	<table border="1">
-		<tr>
-			<th>Account ID</th>
-			<th>Movie Title</th>
-			<th>Time</th>
-			<th>Seat Number</th>
-		</tr>
-		<tr>
-			<td><?php echo $acc_id; ?></td>
-			<td><?php echo $movie_title; ?></td>
-			<td><?php echo $time; ?></td>
-			<td><?php echo $seat; ?></td>
-		</tr>
-	</table>
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" name="cardNumber" id="cardNumber" required>
+        <br>
+        <label for="expiration">Expiration Date (MM/YY):</label>
+        <input type="text" name="expiration" id="expiration" required>
+        <br>
+        <label for="cvv">CVV:</label>
+        <input type="text" name="cvv" id="cvv" required>
+        <br>
+        <input type="submit" name="submit" value="Pay <?php echo '$' . $price; ?>">
+    </form>
 
 </div>
+
 </body>
+
 </html>
-<br>
