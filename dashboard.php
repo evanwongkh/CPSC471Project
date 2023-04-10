@@ -374,9 +374,15 @@ if (!isset($_SESSION['username'])) {
 	<?php
 	if(isset($_GET['error_message'])) {
 		$error_message = $_GET['error_message'];
-		echo "<div style='background-color: red; color: white; padding: 0px; z-index: 2; padding-right: -10vh;'>$error_message</div>";
-	}
+		echo "<div id='error-message' style='background-color: red; color: white; padding: 10px;'>$error_message<button id='close-error-message' style='float:right; display: flex; justify-content: center;'>X</button></div>";	}
 	?>
+	
+	<script>
+	document.getElementById("close-error-message").addEventListener("click", function() {
+    	document.getElementById("error-message").style.display = "none";
+	});
+	</script>
+
 	<div class="regText">
 		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
 	</div>
