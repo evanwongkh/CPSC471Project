@@ -8,6 +8,8 @@ if (!isset($_SESSION['username'])) {
 	header("Location: index.php");
 	exit();
 }
+
+
 ?>
 
 <html>
@@ -362,7 +364,12 @@ if (!isset($_SESSION['username'])) {
 	</nav>
 
     <div class="unique">
-
+	<?php
+	if(isset($_GET['error_message'])) {
+		$error_message = $_GET['error_message'];
+		echo "<div style='background-color: red; color: white; padding: 0px; z-index: 2;'>$error_message</div>";
+	}
+	?>
 	<div class="regText">
 		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
 	</div>
