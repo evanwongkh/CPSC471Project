@@ -272,7 +272,8 @@ if (!$conn) {
 				echo "<ul>";
 				while ($row = mysqli_fetch_assoc($result)) {
 					$time = $row['time'];
-					echo "<li><a href='payment.php?theatreNo=$theatreNo&time=$time'>" . $row['time'] . "</a></li>";
+					$showtimeNo = $row['showtimeNo'];
+					echo "<li><a href='seats.php?theatreNo=$theatreNo&time=$time&showtimeNo=$showtimeNo'>" . $row['time'] . "</a></li>";
 				}
 				echo "</ul>";
 			} else {

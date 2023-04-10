@@ -241,6 +241,8 @@ if (!$conn) {
 		// Get the time and theatre ID from the URL parameter
 		$time = $_GET['time'];
 		$theatre_id = $_GET['theatreNo'];
+		$showtimeNo = $_GET['showtimeNo'];
+		$seat = $_GET['seat'];
 
 		// Get the movie ID and title from the movie table
 		$sql = "SELECT MovieID, Title FROM movie WHERE MovieID IN (SELECT MovieID FROM theatre WHERE theatreNo=$theatre_id)";
@@ -271,7 +273,7 @@ if (!$conn) {
 		}
 
 		// Insert the ticket information into the Ticket table
-		$sql = "INSERT INTO ticket (AccID, Time, MovieTitle) VALUES ($acc_id, '$time', '$movie_title')";
+		$sql = "INSERT INTO ticket (AccID, showtimeNo, movieTitle, seat, time) VALUES ('$acc_id', '$showtimeNo', '$movie_title', '$seat', '$time')";
 		if (mysqli_query($conn, $sql)) {
 			echo "Ticket booked successfully.";
 		} else {
@@ -286,12 +288,14 @@ if (!$conn) {
 		<tr>
 			<th>Account ID</th>
 			<th>Movie Title</th>
-			<th>Showtime</th>
+			<th>Time</th>
+			<th>Seat Number</th>
 		</tr>
 		<tr>
 			<td><?php echo $acc_id; ?></td>
 			<td><?php echo $movie_title; ?></td>
 			<td><?php echo $time; ?></td>
+			<td><?php echo $showtimeNo; ?></td>
 		</tr>
 	</table>
 

@@ -19,6 +19,8 @@ if (!$conn) {
 $AccID = $_SESSION['AccID'];
 $time = $_GET['time']; 
 $theatreNo = $_GET['theatreNo']; 
+$showtimeNo = $_GET['showtimeNo'];
+$seat = $_GET['seat'];
 
 
 if (isset($_POST['submit'])) {
@@ -27,7 +29,9 @@ if (isset($_POST['submit'])) {
     $cvv = $_POST['cvv'];
     $theatreNo = $_POST['theatreNo'];
     $time = $_POST['time'];
-
+	$showtimeNo = $_POST['showtimeNo'];
+	$seat = $_POST['seat'];
+	
     // Validate payment information
     if (!is_numeric($cardNumber) || strlen($cardNumber) != 16) {
         $error = "Invalid card number.";
@@ -37,10 +41,10 @@ if (isset($_POST['submit'])) {
         $error = "Invalid CVV.";
     } else {
         // Payment successful, insert payment information into customer table
-        $sql = "INSERT INTO customer (AccID, card_number, expiration, cvv) VALUES ('$AccID', '$cardNumber', '$expiration', '$cvv')";
+        $sql = "INSERT IGNORE INTO customer (AccID, card_number, expiration, cvv) VALUES ('$AccID', '$cardNumber', '$expiration', '$cvv')";
         if (mysqli_query($conn, $sql)) {
             // Redirect to ticket page
-            header("Location: ticket.php?theatreNo=$theatreNo&time=$time");
+            header("Location: ticket.php?theatreNo=$theatreNo&time=$time&showtimeNo=$showtimeNo&seat=$seat");
             exit();
         } else {
             $error = "Error inserting payment information: " . mysqli_error($conn);
@@ -273,6 +277,9 @@ mysqli_close($conn);
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <input type="hidden" name="theatreNo" value="<?php echo $theatreNo; ?>">
         <input type="hidden" name="time" value="<?php echo $time; ?>">
+		<input type="hidden" name="showtimeNo" value="<?php echo $showtimeNo; ?>">
+		<input type="hidden" name="seat" value="<?php echo $seat; ?>">
+
         <label for="cardNumber">Card Number:</label>
         <input type="text" name="cardNumber" id="cardNumber" required>
         <br>

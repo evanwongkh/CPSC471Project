@@ -263,13 +263,19 @@ if (!$conn) {
         if (mysqli_num_rows($result) > 0) {
             // Display the ticket information in a table
             echo "<h3>My Tickets</h3>";
-            echo "<table>";
-            echo "<tr><th>Ticket ID</th><th>Time</th><th>Movie Title</th><th>Cancel</th></tr>";
+            echo "<table border=\"1\">";
+            echo "<tr><th>Ticket ID</th>
+				<th>Time</th>
+				<th>Movie Title</th>
+				<th>Seat Number</th>
+				<th>Cancel</th>
+				</tr>";
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>" . $row['ticket_id'] . "</td>";
                 echo "<td>" . $row['time'] . "</td>";
                 echo "<td>" . $row['movieTitle'] . "</td>";
+				echo "<td>" . $row['seat'] . "</td>";
                 echo "<td><a href=\"mytickets.php?cancel=" . $row['ticket_id'] . "\">Cancel</a></td>";
                 echo "</tr>";
             }
