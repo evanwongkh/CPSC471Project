@@ -304,8 +304,6 @@ if (!isset($_SESSION['username'])) {
 		text-align: right;
 	}
 
-	
-
 </style>
 
 <body>
@@ -351,6 +349,15 @@ if (!isset($_SESSION['username'])) {
 			</li>
 
 			<li class="menuButton">
+				<a href="admin.php" class="menuText">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32pt" height="32pt" version="1.1" viewBox="0 0 700 750">
+					<path xmlns="http://www.w3.org/2000/svg" d="m350 248.52c-68.652 0-124.31 55.625-124.31 124.29 0 68.641 55.652 124.29 124.31 124.29 68.641 0 124.29-55.652 124.29-124.29 0.015625-68.664-55.641-124.29-124.29-124.29zm44.906 193.41-44.906-23.602-44.922 23.602 8.5859-50.027-36.348-35.414 50.227-7.293 22.457-45.508 22.453 45.492 50.227 7.293-36.348 35.414z"/>
+				</svg>
+					<span class="menuLinkText"> Admin</span>
+				</a>
+			</li>
+
+			<li class="menuButton">
 				<a href="logout.php" class="menuText">
 				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32pt" height="32pt" version="1.1" viewBox="0 0 700 550">
 					<path xmlns="http://www.w3.org/2000/svg" d="m490 140c0 77.32-62.68 140-140 140s-140-62.68-140-140 62.68-140 140-140 140 62.68 140 140"/>
@@ -367,7 +374,7 @@ if (!isset($_SESSION['username'])) {
 	<?php
 	if(isset($_GET['error_message'])) {
 		$error_message = $_GET['error_message'];
-		echo "<div style='background-color: red; color: white; padding: 0px; z-index: 2;'>$error_message</div>";
+		echo "<div style='background-color: red; color: white; padding: 0px; z-index: 2; padding-right: -10vh;'>$error_message</div>";
 	}
 	?>
 	<div class="regText">
