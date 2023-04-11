@@ -175,6 +175,122 @@ if (!$conn) {
 		width: 100%;
 	}
 
+	.body2, html{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
+		width: 100%;
+		height: 100%;
+	}
+
+	.wrapper{
+		display: flex;
+		width: 35%;
+		justify-content: space-around;
+		padding-top: 5vh;
+	}
+
+	.selection{
+		width: 40vh;
+		height: 50vh;
+		padding: 10vh 5vh;
+		box-shadow: 0px 50px 100px rgba(0,0,0,0.3);
+		transition: 0.3s ease-in;
+		border-radius: 5%;
+		background: #000000;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 3px solid black;
+	}
+
+	.selection:before{
+		content: "";
+		position: absolute;
+		display: block;
+		z-index: 3;
+		transition: 0.3s;
+		opacity: 0;
+		border-radius: 5%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(0,0,0,1));
+	}
+
+	.selection:hover:before{
+		opacity: 0.7;
+	}
+
+	.selection img{
+		object-fit: cover;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border-radius: 5%;
+		
+	}
+
+	.selection .info{
+		position: absolute;
+		color: #ffffff;
+		z-index: 3;
+		opacity: 0;
+		transition: 0.2s;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.selection:hover .info{
+		opacity: 1;
+	}
+
+	.selection .info h1{
+		margin: 0 0 0 0;
+	}
+
+	.selection .info p{
+		font-size: 30px;
+		margin-top: 20px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.login{
+		border: none;
+		outline: none;
+		font-size: 20px;
+		height: 50px;
+		width: 100%;
+		max-width: 150px;
+		font-size: 50px;
+		cursor: pointer;
+		transition: .2s;
+		text-decoration: none;
+		color: #911fff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.login:hover{
+		letter-spacing: 1px;
+		color: #fff;
+		border-radius: 50px;
+	}
+
+	.unique ul{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+
+
 </style>
 
 <body>
@@ -252,48 +368,54 @@ if (!$conn) {
 
     <div class="unique">
 
-	<div class="regText">
-		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
-	</div>
-
 	<?php
-		// Get the MovieID parameter from the URL
-		$MovieID = $_GET['id'];
+  // Get the MovieID parameter from the URL
+  $MovieID = $_GET['id'];
 
-		// Retrieve the movie data from the database
-		$sql = "SELECT * FROM movie WHERE MovieID='$MovieID'";
-		$result = mysqli_query($conn, $sql);
+  // Retrieve the movie data from the database
+  $sql = "SELECT * FROM movie WHERE MovieID='$MovieID'";
+  $result = mysqli_query($conn, $sql);
 
-		// Check if there are any results
-		if (mysqli_num_rows($result) > 0) {
-			// Display the movie title
-			$row = mysqli_fetch_assoc($result);
-			$title = $row['Title'];
-			echo "<h1>$title</h1>";
+  // Check if there are any results
+  if (mysqli_num_rows($result) > 0) {
+    // Display the movie title
+    $row = mysqli_fetch_assoc($result);
+    $title = $row['Title'];
+    echo "<h1>$title</h1>";
 
-			// Display the list of theaters showing the movie
-			$sql = "SELECT * FROM theatre WHERE MovieID='$MovieID'";
-			$result = mysqli_query($conn, $sql);
+    // Display the list of theaters showing the movie
+    $sql = "SELECT * FROM theatre WHERE MovieID='$MovieID'";
+    $result = mysqli_query($conn, $sql);
 
-			if (mysqli_num_rows($result) > 0) {
-				echo "<h2>Theaters showing $title:</h2>";
-				echo "<ul>";
+    if (mysqli_num_rows($result) > 0) {
+      echo "<h2>Theaters showing $title:</h2>";
+      echo "<ul>";
 
-				while ($row = mysqli_fetch_assoc($result)) {
-					$theatreNo = $row['theatreNo'];
-					echo "<li><a href='theatre.php?id=$theatreNo'>Theater $theatreNo</a></li>";
-				}
+      while ($row = mysqli_fetch_assoc($result)) {
+		$theatreNo = $row['theatreNo'];
+		$theatrelink = "theatre.php?id=$theatreNo";
+		echo "<div class='wrapper'>
+		<div class='selection'>
+			<img src='https://lh3.googleusercontent.com/pw/AJFCJaU3sK_N0WJY30Ndiue-CQKdTPj9s8J_wL4iBhNuiAZF-Q0QSpzbRTExkqk7GycSPpgp6Xgjqz-NsOw4u8ra0PTuKc2Ebp5XHCNFX2KNpuNmkvxqvy-Q9ExS7pXmMiXNzE0Q_aPY42iKC0DumBay5MrS=w910-h512-s-no?authuser=0' alt='image11' style='border-radius: 5%;'>
+			<div class='info'>
+				<h1>Theatre $theatreNo</h1>
+				<p>Enjoy!</p>
+				<a href='$theatrelink' class='login'>Book</a>
+			</div>
+		</div>
+	</div>";
+	}
 
-				echo "</ul>";
-			} else {
-				echo "<p>No theaters found for $title</p>";
-			}
-		} else {
-			echo "<p>Movie not found</p>";
-		}
+      echo "</ul>";
+    } else {
+      echo "<p>No theaters found for $title</p>";
+    }
+  } else {
+    echo "<p>Movie not found</p>";
+  }
 
-		mysqli_close($conn);
-		?>
+  mysqli_close($conn);
+?>
 
 </div>
 

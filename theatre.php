@@ -176,6 +176,127 @@ if (!$conn) {
 		width: 100%;
 	}
 
+	.body2, html{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
+		width: 100%;
+		height: 100%;
+	}
+
+	.wrapper{
+		display: flex;
+		width: 35%;
+		justify-content: space-around;
+		padding-top: 5vh;
+	}
+
+	.selection{
+		width: 20vh;
+		height: 30vh;
+		padding: 10vh 5vh;
+		box-shadow: 0px 50px 100px rgba(0,0,0,0.3);
+		transition: 0.3s ease-in;
+		border-radius: 5%;
+		background: #000000;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 3px solid black;
+	}
+
+	.selection:before{
+		content: "";
+		position: absolute;
+		display: block;
+		z-index: 3;
+		transition: 0.3s;
+		opacity: 0;
+		border-radius: 5%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(0,0,0,1));
+	}
+
+	.selection:hover:before{
+		opacity: 0.7;
+	}
+
+	.selection img{
+		object-fit: cover;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border-radius: 5%;
+		
+	}
+
+	.selection .info{
+		position: absolute;
+		color: #ffffff;
+		z-index: 3;
+		opacity: 0;
+		transition: 0.2s;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.selection:hover .info{
+		opacity: 1;
+	}
+
+	.selection .info h1{
+		margin: 0 0 0 0;
+	}
+
+	.selection .info p{
+		font-size: 30px;
+		margin-top: 20px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.login{
+		border: none;
+		outline: none;
+		font-size: 20px;
+		height: 50px;
+		width: 100%;
+		max-width: 150px;
+		font-size: 50px;
+		cursor: pointer;
+		transition: .2s;
+		text-decoration: none;
+		color: #911fff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.login:hover{
+		letter-spacing: 1px;
+		color: #fff;
+		border-radius: 50px;
+	}
+
+	.unique ul{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+
+	.test{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
 </style>
 
 <body>
@@ -252,60 +373,67 @@ if (!$conn) {
 	</nav>
 
     <div class="unique">
-
 	<div class="regText">
-		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
 	</div>
-
 	<?php
-		// Get the theatre ID from the URL parameter
-		$theatreNo = $_GET['id'];
+    // Get the theatre ID from the URL parameter
+    $theatreNo = $_GET['id'];
 
-		// Get the theatre data from the database
-		$sql = "SELECT * FROM theatre WHERE theatreNo=$theatreNo";
-		$result = mysqli_query($conn, $sql);
+    // Get the theatre data from the database
+    $sql = "SELECT * FROM theatre WHERE theatreNo=$theatreNo";
+    $result = mysqli_query($conn, $sql);
 
-		if (mysqli_num_rows($result) > 0) {
-			// Display the theatre data
-			$row = mysqli_fetch_assoc($result);
-			$movie_id = $row['MovieID'];
-			echo "<h1>Theatre " . $row['theatreNo'] . "</h1>";
-			echo "<p>Movie ID: " . $movie_id . "</p>";
+    if (mysqli_num_rows($result) > 0) {
+        // Display the theatre data
+        $row = mysqli_fetch_assoc($result);
+        $movie_id = $row['MovieID'];
+        echo "<h1>Theatre " . $row['theatreNo'] . "</h1>";
+        echo "<p>Movie ID: " . $movie_id . "</p>";
 
-			// Get the movie data from the database
-			$sql = "SELECT * FROM movie WHERE MovieID=$movie_id";
-			$result = mysqli_query($conn, $sql);
+        // Get the movie data from the database
+        $sql = "SELECT * FROM movie WHERE MovieID=$movie_id";
+        $result = mysqli_query($conn, $sql);
 
-			if (mysqli_num_rows($result) > 0) {
-				// Display the movie data
-				$row = mysqli_fetch_assoc($result);
-				echo "<h2>" . $row['Title'] . "</h2>";
-			}
+        if (mysqli_num_rows($result) > 0) {
+            // Display the movie data
+            $row = mysqli_fetch_assoc($result);
+            echo "<h2>" . $row['Title'] . " Showtimes:</h2>";
+        }
+		?>
+		<div class='test'>
+		<?php
 
-			// Get the showtimes data from the database
-			$sql = "SELECT * FROM showtimes WHERE theatreNo=$theatreNo";
-			$result = mysqli_query($conn, $sql);
+        // Get the showtimes data from the database
+        $sql = "SELECT * FROM showtimes WHERE theatreNo=$theatreNo";
+        $result = mysqli_query($conn, $sql);
 
-			if (mysqli_num_rows($result) > 0) {
-				// Display the showtimes data
-				echo "<h3>Showtimes</h3>";
-				echo "<ul>";
-				while ($row = mysqli_fetch_assoc($result)) {
-					$time = $row['time'];
-					$showtimeNo = $row['showtimeNo'];
-					echo "<li><a href='seats.php?theatreNo=$theatreNo&time=$time&showtimeNo=$showtimeNo'>" . $row['time'] . "</a></li>";
-				}
-				echo "</ul>";
-			} else {
-				echo "No showtimes available.";
-			}
-		} else {
-			echo "Theatre not found.";
-		}
+        if (mysqli_num_rows($result) > 0) {
 
-		mysqli_close($conn);
-	?>
+            while ($row = mysqli_fetch_assoc($result)) {
+                $time = $row['time'];
+                $showtimeNo = $row['showtimeNo'];
 
+                echo "<div class='wrapper'>
+                        <div class='selection'>
+                            <img src='https://lh3.googleusercontent.com/pw/AJFCJaXwl5jwMQx3t1fbmGm1aLbjdhYGX1I1_Lm80aDdQy3KB12plyFq5ukj3xmU3WqVcBvs3cDWBTWmLYr2mmKdbxV_Xst09UbmvcUjeaLcXNhrUNmnVU12mADuenxVvFAcAiiqQ8mGJzC6HMPThuhutvYd=w1000-h667-s-no?authuser=0' alt='image11' style='border-radius: 5%;'>
+                            <div class='info'>
+                                <h1>$time</h1>
+                                <p>Showtime No: $showtimeNo</p>
+                                <a href='seats.php?theatreNo=$theatreNo&time=$time&showtimeNo=$showtimeNo' class='login'>Book</a>
+                            </div>
+                        </div>
+                    </div>";
+            }
+        } else {
+            echo "No showtimes available.";
+        }
+    } else {
+        echo "Theatre not found.";
+    }
+
+    mysqli_close($conn);
+?>
+</div>
 </div>
 
 </body>
