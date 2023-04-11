@@ -251,36 +251,37 @@ if (!$conn) {
     <div class="unique">
 
 	<div class="regText">
-		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
-        <?php
-            // Get discount data based on user's AccID
-            $AccID = $_SESSION['AccID'];
-            $sql = "SELECT * FROM discount WHERE AccID='$AccID'";
-            $result = mysqli_query($conn, $sql);
+		Welcome, <?php echo $_SESSION['username']; ?>! Here are your discounts!
+		<?php
+    // Get discount data based on user's AccID
+    $AccID = $_SESSION['AccID'];
+    $sql = "SELECT * FROM discount WHERE AccID='$AccID'";
+    $result = mysqli_query($conn, $sql);
 
-            // Display discount data to user
+    // Display discount data to user
+    if (mysqli_num_rows($result) > 0) {
+        echo "<table style=\"border-collapse: collapse; width: 100%; max-width: 600px; margin: 0 auto;\">";
+        echo "<tr style=\"background-color: #000000; font-weight: bold;\">";
+        echo "<td style=\"padding: 10px; border: 1px solid #ddd;\">Discount ID</td>";
+        echo "<td style=\"padding: 10px; border: 1px solid #ddd;\">Discount Name</td>";
+        echo "<td style=\"padding: 10px; border: 1px solid #ddd;\">Discount Percentage</td>";
+        echo "</tr>";
+        while ($row = mysqli_fetch_assoc($result)) {
+			
+            echo "<tr style=\"background-color: #000000; border: 1px solid #ddd;\">";
+            echo "<td style=\"padding: 10px;\">" . $row['DiscountID'] . "</td>";
+            echo "<td style=\"padding: 10px;\">" . $row['DiscountName'] . "</td>";
+            echo "<td style=\"padding: 10px;\">" . $row['DiscountPercentage'] . "</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "<p style=\"text-align: center;\">No discounts found for your account.</p>";
+    }
 
-            if (mysqli_num_rows($result) > 0) {
-                echo "<table border=\"1\">";
-                        echo "<tr>
-                            <th>Discount ID</th>
-                            <th>Discount Name</th>
-                            <th>Discount Percentage</th>
-                        </tr>";
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>
-                            <td>" . $row['DiscountID'] . "</td>
-                            <td>" . $row['DiscountName'] . "</td>
-                            <td>" . $row['DiscountPercentage'] . "</td>
-                        </tr>";
-                }
-                echo "</table>";
-            } else {
-                echo "No discounts found for your account.";
-            }
+    mysqli_close($conn);
+?>
 
-            mysqli_close($conn);
-        ?>
 	</div>
 
 </div>

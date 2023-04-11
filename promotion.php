@@ -267,7 +267,17 @@ if (!$conn) {
 	<div class="regText">
 		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
 		<h1>Check out our latest promotion!</h1>
-		<img src="https://assets-prd.ignimgs.com/2023/02/03/foevbcsayamvqpf-1675462826997.jpg" alt="Super Mario Bros movie poster">
+		<img src="https://assets-prd.ignimgs.com/2023/02/03/foevbcsayamvqpf-1675462826997.jpg" alt="Super Mario Bros movie poster" style="border: 5px solid #FF0000; animation: flashBorder 1s infinite;">
+		<b>
+			
+		<style>
+		@keyframes flashBorder {
+		0% { border-color: #FF0000; }
+		50% { border-color: #000000; }
+		100% { border-color: #FF0000; }
+		}
+		</style>
+		<!-- test -->
 		<p>Don't miss out on the action-packed Super Mario Bros movie! Grab your friends and family and head over to our theater today!</p>
 	</div>
 
