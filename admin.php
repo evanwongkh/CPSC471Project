@@ -16,92 +16,6 @@ $conn = mysqli_connect($servername, $username, $password, $database);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
-$AccID = $_SESSION['AccID'];
-
-// Check if user is an admin
-$sql = "SELECT * FROM user WHERE AccID='$AccID' AND admin=1";
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) == 0) {
-    $error_message = "You do not have the necessary permissions to access this page.";
-    header("Location: dashboard.php?error_message=".urlencode($error_message));
-    exit();
-}
-
-// Add movie to database
-if (isset($_POST['submit_movie'])) {
-    $movie_title = $_POST['movie_title'];
-
-    $sql = "INSERT INTO movie (Title) VALUES ('$movie_title')";
-
-    if (mysqli_query($conn, $sql)) {
-        $message = "Movie added successfully.";
-    } else {
-        $error = "Error adding movie: " . mysqli_error($conn);
-    }
-}
-
-// Add theatre to database
-if (isset($_POST['submit_theatre'])) {
-    $MovieID = $_POST['MovieID'];
-
-    $sql = "INSERT INTO theatre (MovieID) VALUES ('$MovieID')";
-
-    if (mysqli_query($conn, $sql)) {
-        $message = "Theatre added successfully.";
-    } else {
-        $error = "Error adding theatre: " . mysqli_error($conn);
-    }
-}
-
-// Add showtime to database
-if (isset($_POST['add_showtime'])) {    
-    $theatreNo = mysqli_real_escape_string($conn, $_POST['theatreNo']);
-    $time = mysqli_real_escape_string($conn, $_POST['time']);
-    $convertedTime = date('h:i A', strtotime($time));
-    // Insert the showtime into the database
-    $sql = "INSERT INTO showtimes (theatreNo, time) VALUES ('$theatreNo', '$convertedTime')";
-    if (mysqli_query($conn, $sql)) {
-        echo "<p>Showtime added successfully.</p>";
-    } else {
-        echo "<p>Error adding showtime: " . mysqli_error($conn) . "</p>";
-    }
-}
-
-// Delete movie from database
-if (isset($_POST['delete_movie'])) {
-    $MovieID = $_POST['MovieID'];
-    $sql = "DELETE FROM movie WHERE MovieID=$MovieID";
-    mysqli_query($conn, $sql);
-}
-
-// Delete theatre from database
-if (isset($_POST['delete_theatre'])) {
-    $theatreNo = $_POST['theatreNo'];
-    $sql = "DELETE FROM theatre WHERE theatreNo=$theatreNo";
-    mysqli_query($conn, $sql);
-}
-
-// Delete showtime from database
-if (isset($_POST['delete_showtime'])) {
-    $showtimeNo = $_POST['showtimeNo'];
-    $sql = "DELETE FROM showtimes WHERE showtimeNo=$showtimeNo";
-    mysqli_query($conn, $sql);
-}
-
-// Retrieve movies from database
-$sql = "SELECT * FROM movie";
-$movie_result = mysqli_query($conn, $sql);
-
-// Retrieve theatres from database
-$sql = "SELECT * FROM theatre";
-$theatre_result = mysqli_query($conn, $sql);
-
-$sql = "SELECT * FROM showtimes";
-$showtime_result = mysqli_query($conn, $sql);
-
-mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
@@ -138,7 +52,6 @@ mysqli_close($conn);
         background-attachment: fixed;
         background-size: cover;
 		overflow-x: hidden;
-
     }
 
 	body::-webkit-scrollbar{
@@ -154,11 +67,12 @@ mysqli_close($conn);
 	}
 
     .unique{
-		justify-content: center;
-		align-items: center;
 		margin-left: 6rem;
 		padding-top: 0.1vh;
 		text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
 	.menu{
@@ -260,6 +174,40 @@ mysqli_close($conn);
 		width: 100%;
 	}
 
+    #addMovie{
+        border: 1px solid white;
+        padding: 5vh;
+    }
+
+    h3{
+        font-size: 20px;
+    }
+    
+    h4{
+        font-size: 30px;
+        color: #911fff;
+    }
+
+    .login{
+		border: none;
+		outline: none;
+		border-radius: 30px;
+		height: 50px;
+		width: 150px;
+		background: rgba(255, 255, 255, 0.7);
+		font-size: 20px;
+		cursor: pointer;
+		transition: .2s;
+	}
+
+	.login:hover{
+		letter-spacing: 1px;
+		color: #fff;
+		background: rgba(0, 0, 0, 0.7);
+		border-radius: 50px;
+	}
+
+
 </style>
 
 <body>
@@ -338,11 +286,99 @@ mysqli_close($conn);
 
     <div class="unique">
 
+    <?php
+        $AccID = $_SESSION['AccID'];
+
+        // Check if user is an admin
+        $sql = "SELECT * FROM user WHERE AccID='$AccID' AND admin=1";
+        $result = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($result) == 0) {
+            $error_message = "You do not have the necessary permissions to access this page.";
+            header("Location: dashboard.php?error_message=".urlencode($error_message));
+            exit();
+        }
+
+        // Add movie to database
+        if (isset($_POST['submit_movie'])) {
+            $movie_title = $_POST['movie_title'];
+
+            $sql = "INSERT INTO movie (Title) VALUES ('$movie_title')";
+
+            if (mysqli_query($conn, $sql)) {
+                $message = "Movie added successfully.";
+            } else {
+                $error = "Error adding movie: " . mysqli_error($conn);
+            }
+        }
+
+        // Add theatre to database
+        if (isset($_POST['submit_theatre'])) {
+            $MovieID = $_POST['MovieID'];
+
+            $sql = "INSERT INTO theatre (MovieID) VALUES ('$MovieID')";
+
+            if (mysqli_query($conn, $sql)) {
+                $message = "Theatre added successfully.";
+            } else {
+                $error = "Error adding theatre: " . mysqli_error($conn);
+            }
+        }
+
+        // Add showtime to database
+        if (isset($_POST['add_showtime'])) {    
+            $theatreNo = mysqli_real_escape_string($conn, $_POST['theatreNo']);
+            $time = mysqli_real_escape_string($conn, $_POST['time']);
+            $convertedTime = date('h:i A', strtotime($time));
+            // Insert the showtime into the database
+            $sql = "INSERT INTO showtimes (theatreNo, time) VALUES ('$theatreNo', '$convertedTime')";
+            if (mysqli_query($conn, $sql)) {
+                echo "<p>Showtime added successfully.</p>";
+            } else {
+                echo "<p>Error adding showtime: " . mysqli_error($conn) . "</p>";
+            }
+        }
+
+        // Delete movie from database
+        if (isset($_POST['delete_movie'])) {
+            $MovieID = $_POST['MovieID'];
+            $sql = "DELETE FROM movie WHERE MovieID=$MovieID";
+            mysqli_query($conn, $sql);
+        }
+
+        // Delete theatre from database
+        if (isset($_POST['delete_theatre'])) {
+            $theatreNo = $_POST['theatreNo'];
+            $sql = "DELETE FROM theatre WHERE theatreNo=$theatreNo";
+            mysqli_query($conn, $sql);
+        }
+
+        // Delete showtime from database
+        if (isset($_POST['delete_showtime'])) {
+            $showtimeNo = $_POST['showtimeNo'];
+            $sql = "DELETE FROM showtimes WHERE showtimeNo=$showtimeNo";
+            mysqli_query($conn, $sql);
+        }
+
+        // Retrieve movies from database
+        $sql = "SELECT * FROM movie";
+        $movie_result = mysqli_query($conn, $sql);
+
+        // Retrieve theatres from database
+        $sql = "SELECT * FROM theatre";
+        $theatre_result = mysqli_query($conn, $sql);
+
+        $sql = "SELECT * FROM showtimes";
+        $showtime_result = mysqli_query($conn, $sql);
+
+        mysqli_close($conn);
+    ?>
+    
 	<div class="regText">
-		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
-        <h3>Admin Panel</h3>
+		<h3>Welcome, <?php echo $_SESSION['username']; ?> to the Admin Panel<h3>
     <?php if (isset($message)) echo "<p style='color:green'>$message</p>" ?>
     <?php if (isset($error)) echo "<p style='color:red'>$error</p>" ?>
+    <div id="addMovie">
     <h4>Add Movie</h4>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <label for="movie_title">Movie Name:</label>
@@ -351,9 +387,10 @@ mysqli_close($conn);
         <!-- <label for="movie_description">Description:</label>
         <textarea name="movie_description" id="movie_description" required></textarea>
         <br> -->
-        <input type="submit" name="submit_movie" value="Add Movie">
+        <input class='login' type="submit" name="submit_movie" value="Add Movie">
     </form>
-
+    </div>
+    <div id="addMovie">
     <h4>Enter the movie ID that the new theatre is showing</h4>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <label for="MovieID">Movie ID:</label>
@@ -362,9 +399,10 @@ mysqli_close($conn);
         <!-- <label for="theatre_location">Location:</label>
         <input type="text" name="theatre_location" id="theatre_location" required>
         <br> -->
-        <input type="submit" name="submit_theatre" value="Add Theatre">
+        <input class='login' type="submit" name="submit_theatre" value="Add Theatre">
     </form>
-
+    </div>
+    <div id="addMovie">
     <h4>Add Showtime</h4>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <label for="theatreNo">Theatre Number:</label>
@@ -373,16 +411,16 @@ mysqli_close($conn);
         <label for="time">Time:</label>
         <input type="time" name="time" required>
         <br><br>
-        <input type="submit" name="add_showtime" value="Add Showtime">
+        <input class='login' type="submit" name="add_showtime" value="Add Showtime">
     </form>
-
+    </div>
+    <div id="addMovie">
     <h4>Movies</h4>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Title</th>
-                <th>Genre</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -394,14 +432,15 @@ mysqli_close($conn);
                     <td>
                         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                             <input type="hidden" name="MovieID" value="<?php echo $row['MovieID']; ?>">
-                            <input type="submit" name="delete_movie" value="Delete">
+                            <input class='login' type="submit" name="delete_movie" value="Delete">
                         </form>
                     </td>
                 </tr>
             <?php endwhile; ?>
         </tbody>
     </table>
-
+    </div>
+    <div id="addMovie">
     <h4>Theatres</h4>
     <table>
         <thead>
@@ -419,14 +458,15 @@ mysqli_close($conn);
                     <td>
                         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                             <input type="hidden" name="theatreNo" value="<?php echo $row['theatreNo']; ?>">
-                            <input type = "submit" name = "delete_theatre" value = "Delete">
+                            <input class='login' type = "submit" name = "delete_theatre" value = "Delete">
                             </form>
                     </td>
                 </tr>
             <?php endwhile; ?>
         </tbody>
     </table>
-
+    </div>
+    <div id="addMovie">
     <h4>Showtimes</h4>
     <table>
         <thead>
@@ -450,7 +490,7 @@ mysqli_close($conn);
                     <td>
                         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                             <input type="hidden" name="showtimeNo" value="<?php echo $row['showtimeNo']; ?>">
-                            <input type="submit" name="delete_showtime" value="Delete">
+                            <input class='login' type="submit" name="delete_showtime" value="Delete">
                         </form>
                     </td>
                 </tr>
@@ -458,7 +498,7 @@ mysqli_close($conn);
         </tbody>
     </table>
 	</div>
-
+    </div>
 </div>
 
 </body>
