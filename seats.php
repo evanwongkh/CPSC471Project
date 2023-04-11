@@ -247,7 +247,7 @@ if (!$conn) {
     <div class="unique">
 
 	<div class="regText">
-		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
+		Select your seat!
         <?php
             // Fetch available seats for the given theatre, time, and showtime
             $theatreNo = $_GET['theatreNo'];
