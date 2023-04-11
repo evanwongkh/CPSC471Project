@@ -190,7 +190,7 @@ if (!isset($_SESSION['username'])) {
 		width: 100%;
 		height: 600px;
 		left: 0;
-		transition: 0.6s;
+		transition: 0.4s;
 		z-index: 0;
 	}
 	
@@ -198,84 +198,84 @@ if (!isset($_SESSION['username'])) {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin: 0 20px;
+		margin: 0 30px
 		
 	}
 
 	.img{
 		position: relative;
-		width: 250px;
-		height: 380px;
-		transition: 0.6s;
+		width: 260px;
+		height: 390px;
+		border: 5px solid black;
+		transition: 0.4s;
 		
 	}
 
 	.button {
 		position: absolute;
-		width: 250px;
-		height: 380px;
-		transition: 0.6s;
+		width: 260px;
+		height: 390px;
+		transition: 0.4s;
 		background-color: transparent;
 	}
 
 	#imagespan1:target ~ .imageslider #img1{
-		width:  400px;
-		height: 610px;
+		width: 410px;
+		height: 620px;
 		background: transparent;
 	}
 	
 	#imagespan1:target ~.imageslider #button-1{
-		width:400px;
-		height: 610px;
+		width: 410px;
+		height: 620px;
 		background-color: transparent;
 	}
 
 	#imagespan2:target ~ .imageslider #img2{
-		width:  400px;
-		height: 610px;
+		width: 410px;
+		height: 620px;
 		background: transparent;
 	}
 
 	#imagespan2:target ~.imageslider #button-2{
-		width:400px;
-		height: 610px;
+		width: 410px;
+		height: 620px;
 		background-color: transparent;
 	}
 
 	#imagespan3:target ~ .imageslider #img3{
-		width:  400px;
-		height: 610px;
+		width: 410px;
+		height: 620px;
 		background: transparent;
 	}
 
 	#imagespan3:target ~.imageslider #button-3{
-		width:400px;
-		height: 610px;
+		width: 410px;
+		height: 620px;
 		background-color: transparent;
 	}
 
 	#imagespan4:target ~ .imageslider #img4{
-		width:  400px;
-		height: 610px;
+		width: 410px;
+		height: 620px;
 		background: transparent;
 	}
 
 	#imagespan4:target ~.imageslider #button-4{
-		width:400px;
-		height: 610px;
+		width: 410px;
+		height: 620px;
 		background-color: transparent;
 	}
 	
 	#imagespan5:target ~ .imageslider #img5{
-		width:  400px;
-		height: 610px;
+		width: 410px;
+		height: 620px;
 		background: transparent;
 	}
 
-	
 	#imagespan5:target ~.imageslider #button-5{
-		width:400px;
-		height: 610px;
+		width: 410px;
+		height: 620px;
 		background-color: transparent;
 	}
 
