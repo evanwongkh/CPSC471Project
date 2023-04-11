@@ -294,7 +294,7 @@ mysqli_close($conn);
     <div class="unique">
 
 	<div class="regText">
-		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
+		Welcome, <?php echo $_SESSION['username']; ?>! Order your food!
 	</div>
     <h3>Food Menu</h3>
     <?php if (isset($message)) echo "<p style='color:green'>$message</p>" ?>
