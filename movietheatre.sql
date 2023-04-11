@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 10, 2023 at 12:54 AM
+-- Generation Time: Apr 11, 2023 at 04:10 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -30,9 +30,19 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `customer`;
 CREATE TABLE IF NOT EXISTS `customer` (
   `AccID` int NOT NULL,
-  `payment_info` varchar(255) NOT NULL,
+  `card_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `expiration` varchar(255) NOT NULL,
+  `cvv` varchar(255) NOT NULL,
   PRIMARY KEY (`AccID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`AccID`, `card_number`, `expiration`, `cvv`) VALUES
+(2, '1234123412341234', '12/12', '123'),
+(5, '1234123412341234', '12/12', '123');
 
 -- --------------------------------------------------------
 
@@ -48,7 +58,15 @@ CREATE TABLE IF NOT EXISTS `discount` (
   `DiscountPercentage` varchar(50) NOT NULL,
   PRIMARY KEY (`DiscountID`),
   KEY `AccID` (`AccID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `discount`
+--
+
+INSERT INTO `discount` (`DiscountID`, `AccID`, `DiscountName`, `DiscountPercentage`) VALUES
+(1, 2, 'Buy One General Admission and Get a 2nd General Admission Free', 'N/A'),
+(2, 2, 'Buy One Get One 50% Off', '50%');
 
 -- --------------------------------------------------------
 
@@ -64,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `food` (
   `Price` varchar(50) NOT NULL,
   PRIMARY KEY (`OrderNumber`),
   KEY `AccID` (`AccID`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `food`
@@ -75,7 +93,10 @@ INSERT INTO `food` (`OrderNumber`, `AccID`, `Name`, `Price`) VALUES
 (5, 3, 'Burger', '10'),
 (7, 3, 'Pizza', '10'),
 (8, 3, 'Burger', '10'),
-(9, 2, 'Burger', '10');
+(20, 2, 'Soda', '10'),
+(12, 2, 'Popcorn', '14'),
+(19, 2, 'Nachos', '7'),
+(18, 2, 'Hot Dog', '5');
 
 -- --------------------------------------------------------
 
@@ -88,14 +109,14 @@ CREATE TABLE IF NOT EXISTS `movie` (
   `MovieID` int NOT NULL AUTO_INCREMENT,
   `Title` varchar(255) NOT NULL,
   PRIMARY KEY (`MovieID`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `movie`
 --
 
 INSERT INTO `movie` (`MovieID`, `Title`) VALUES
-(1, 'Super Mario Bros. Movie, The'),
+(1, 'The Super Mario Bros. Movie'),
 (2, 'Dungeons & Dragons: Honor Among Thieves'),
 (3, 'John Wick: Chapter 4'),
 (4, 'AIR'),
@@ -110,11 +131,16 @@ INSERT INTO `movie` (`MovieID`, `Title`) VALUES
 DROP TABLE IF EXISTS `promotion`;
 CREATE TABLE IF NOT EXISTS `promotion` (
   `ReccID` int NOT NULL AUTO_INCREMENT,
-  `AccID` int NOT NULL,
   `Recommendation` varchar(255) NOT NULL,
-  PRIMARY KEY (`ReccID`),
-  KEY `AccID` (`AccID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`ReccID`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `promotion`
+--
+
+INSERT INTO `promotion` (`ReccID`, `Recommendation`) VALUES
+(1, 'The Super Mario Bros. Movie');
 
 -- --------------------------------------------------------
 
@@ -129,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `showtimes` (
   `time` varchar(50) NOT NULL,
   PRIMARY KEY (`showtimeNo`),
   KEY `theatreNo` (`theatreNo`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `showtimes`
@@ -189,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `theatre` (
   `MovieID` int DEFAULT NULL,
   PRIMARY KEY (`theatreNo`),
   KEY `MovieID` (`MovieID`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `theatre`
@@ -217,20 +243,20 @@ DROP TABLE IF EXISTS `ticket`;
 CREATE TABLE IF NOT EXISTS `ticket` (
   `ticket_id` int NOT NULL AUTO_INCREMENT,
   `AccID` int NOT NULL,
-  `time` varchar(50) NOT NULL,
-  `price` varchar(50) NOT NULL,
+  `showtimeNo` int NOT NULL,
   `movieTitle` varchar(255) NOT NULL,
+  `seat` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `time` varchar(255) NOT NULL,
   PRIMARY KEY (`ticket_id`,`AccID`),
   KEY `AccID` (`AccID`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `ticket`
 --
 
-INSERT INTO `ticket` (`ticket_id`, `AccID`, `time`, `price`, `movieTitle`) VALUES
-(23, 2, '3:00PM', '', 'Super Mario Bros. Movie, The'),
-(22, 2, '12:00PM', '', 'Dungeons & Dragons: Honor Among Thieves');
+INSERT INTO `ticket` (`ticket_id`, `AccID`, `showtimeNo`, `movieTitle`, `seat`, `time`) VALUES
+(46, 2, 1, 'The Super Mario Bros. Movie', 'A1', '12:00PM');
 
 -- --------------------------------------------------------
 
@@ -246,18 +272,21 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Fname` varchar(255) NOT NULL,
   `Lname` varchar(255) NOT NULL,
   `DOB` varchar(10) NOT NULL,
+  `age` int NOT NULL,
   `admin` tinyint(1) NOT NULL,
   PRIMARY KEY (`AccID`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`AccID`, `username`, `password`, `Fname`, `Lname`, `DOB`, `admin`) VALUES
-(1, 'admin', 'admin', 'evan', 'tony', 'johnny', 1),
-(2, 'nave', '$2y$10$6FptFabdBqxSjgb7Di159ODbQCWefLfKgys.7wszqMPPtK/FmwASK', 'evan', 'wong', '31/07/2002', 1),
-(3, 'test', '$2y$10$ILRjy0TNCX3SnrolO5AL2u/IFX1uqquPUnFL5VF9NvYtSlJbph8oi', 'test', 'test', '09/04/2023', 0);
+INSERT INTO `user` (`AccID`, `username`, `password`, `Fname`, `Lname`, `DOB`, `age`, `admin`) VALUES
+(1, 'admin', 'admin', 'evan', 'tony', 'johnny', 0, 1),
+(2, 'nave', '$2y$10$6FptFabdBqxSjgb7Di159ODbQCWefLfKgys.7wszqMPPtK/FmwASK', 'evan', 'wong', '2002-07-31', 0, 1),
+(3, 'test', '$2y$10$ILRjy0TNCX3SnrolO5AL2u/IFX1uqquPUnFL5VF9NvYtSlJbph8oi', 'test', 'test', '09/04/2023', 0, 0),
+(4, 'admin2', '$2y$10$CUbt1oPy943DlpmvGZkthuUWrjSO0lVAMmuAj4yBv4X2TQPRj0Q.K', 'me', 'best', '2023-04-09', 0, 0),
+(5, 'test2', '$2y$10$f5qQC4doIY553grSo9qHyelv5K/aIQNaioXPeLxse1HXur/s8tHni', 'test2', 'test2', '2004-06-05', 18, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
