@@ -169,7 +169,7 @@ if (!isset($_SESSION['username'])) {
 		align-items: center;
 		overflow: hidden;
 		width: 100%;
-		height: 85vh;
+		height: 80vh;
 	}
 
 	.imagecontainer {
@@ -288,11 +288,6 @@ if (!isset($_SESSION['username'])) {
 		padding-top: 4vh;
 	}
 
-	.movieTitle a {
-		text-decoration: none;
-		color: #911fff;
-		margin: 0 20px; 
-	}
 
 	.regText{
 		padding-top: 2vh;
@@ -300,11 +295,74 @@ if (!isset($_SESSION['username'])) {
 		justify-content: center;
 		align-items: center;
 		font-size: 50px;
+		font-weight: bold;
+		text-shadow: 5px;
 	}
 
 	.h1{
 		text-align: right;
 	}
+
+	.wrapper{
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: -25vh;
+		text-decoration: none;
+		background-color: transparent;
+		padding-top: 3vh;
+	}
+
+	.wrapper ul{
+		position: relative;
+		margin: 0;
+		padding: 0;
+		border-radius: 2vh;
+		padding-top: 3vh;
+		background-color: rgba(0,0,0, 0.3);
+		padding-bottom: 3vh;
+		border: 1px solid #911fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #911fff;
+        animation: glow 1s ease-in-out infinite alternate;
+		padding: 5px;
+		text-decoration: none;
+		list-style: none;
+	}
+
+	.wrapper li{
+		padding-top: 1vh;
+	}
+
+	.wrapper ul li a{
+		list-style: none;
+		width: 100%;
+		padding-top: 2vh;
+		transition: 0.2s;
+		color: #911fff;
+		background-color: transparent;
+		text-decoration: none;
+	}
+	.wrapper ul li a:hover{
+		transform: scale(1.1);
+		z-index: 5;
+		background: rgba(0,0,0, 0.8);
+		box-shadow: 0 50px 100px rgba(0,0,0, .2);
+		border-radius: 3vh;
+		color: #fff;	
+	}
+
+	@keyframes glow {
+        from {
+          border-color: purple;
+          box-shadow: 0 0 10px #911fff, 0 0 20px #911fff, 0 0 30px #911fff;
+        }
+        to {
+          border-color: #a800e6;
+          box-shadow: 0 0 20px #a800e6, 0 0 30px #a800e6, 0 0 40px #a800e6;
+        }
+      }
 
 </style>
 
@@ -417,17 +475,6 @@ $sql = "SELECT * FROM movie";
 $result = mysqli_query($conn, $sql);
 ?>
 
-<div class='movieTitle'>
-<?php
-// Check if there are any results
-while ($row = mysqli_fetch_assoc($result)) {
-	$MovieID = $row['MovieID'];
-	$title = $row['Title'];
-	echo "<a href='movie.php?id=$MovieID'>$title</a><br>";
-}
-?>
-</div>
-
 	<div class="bodyslider">
   	<div class="imagecontainer">
     <span class="imagespan" id="imagespan1"></span>
@@ -458,8 +505,33 @@ while ($row = mysqli_fetch_assoc($result)) {
           <a href="#imagespan5" class="button" id="button-5" ></a>
         </div>              
     </div>
+	
 </div>
 
+</div>
+
+<div class = "wrapper">
+	<div class='movieTitle'>
+		<h2></h2>
+		
+		<?php
+			// Check if there are any results
+			if (mysqli_num_rows($result) > 0) {
+			echo '<ul>';
+
+			while ($row = mysqli_fetch_assoc($result)) {
+				$MovieID = $row['MovieID'];
+				$title = $row['Title'];
+				
+				echo "<li><a style='padding: 5px 10px 5px 10px' href='movie.php?id=$MovieID'>$title</a></li>";
+			}
+			
+			echo '</ul>';
+			} else {
+			echo 'No results found.';
+			}
+		?>
+	</div>
 </div>
 
 </body>
