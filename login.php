@@ -37,6 +37,7 @@ if (password_verify($password, $hashedPasswordFromDatabase)) {
 	exit();
 } else {
 	echo "Password is invalid!";
+	header("Location: index.php");
 }
 
 ?>
