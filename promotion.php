@@ -29,7 +29,7 @@ if (!$conn) {
 
 	<style>
 		body {
-			font-family: Arial, sans-serif;
+			font-family: 'Quicksand', sans-serif;
 			text-align: center;
 		}
 		h1 {
@@ -265,10 +265,13 @@ if (!$conn) {
     <div class="unique">
 
 	<div class="regText">
-		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
+		Welcome, <?php echo $_SESSION['username']; ?>! Here's today's promotion!
 		<h1>Check out our latest promotion!</h1>
 		<img src="https://assets-prd.ignimgs.com/2023/02/03/foevbcsayamvqpf-1675462826997.jpg" alt="Super Mario Bros movie poster" style="border: 5px solid #FF0000; animation: flashBorder 1s infinite;">
-		<b>
+	</br>
+	<p><strong>Synopsis</strong></p>
+	A Brooklyn plumber named Mario travels through the Mushroom Kingdom with a princess named Peach and an anthropomorphic mushroom named Toad to find Mario's brother, Luigi, and to save the world from a ruthless fire-breathing Koopa named Bowser.
+			
 			
 		<style>
 		@keyframes flashBorder {
@@ -278,7 +281,16 @@ if (!$conn) {
 		}
 		</style>
 		<!-- test -->
-		<p>Don't miss out on the action-packed Super Mario Bros movie! Grab your friends and family and head over to our theater today!</p>
+		</br>
+		</br>
+		</br>
+		
+		<p><strong>Don't miss out on the action-packed Super Mario Bros movie! Grab your friends and family and head over to our theater today!</strong></p>
+		</br>
+		</br>
+		</br>
+		</br>
+		</br>
 	</div>
 
 </div>
