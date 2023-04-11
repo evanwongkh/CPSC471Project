@@ -299,7 +299,7 @@ if (!$conn) {
             }
 
             ?>
-            <div style="display: flex; justify-content: center;">
+            <div style="display: flex; justify-content: center; padding-top: 20vh;">
             <?php
 
             // Display the seats in a table

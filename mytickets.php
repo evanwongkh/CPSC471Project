@@ -254,7 +254,7 @@ if (!$conn) {
     <div class="unique">
 
 	<div class="regText">
-		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
+		
 	</div>
     <?php
         // Get the AccID from the session variable
