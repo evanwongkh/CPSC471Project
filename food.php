@@ -91,6 +91,8 @@ mysqli_close($conn);
 		width: 100vw;
     	height: 100vh;
     	background-image: linear-gradient(135deg, rgba(20, 20, 20, 1) 0%, rgba(40, 40, 40, 1) 40%, rgba(20, 20, 20, 1) 80%);
+        background-repeat: repeat-y;
+        background-attachment: fixed;
 		overflow-x: hidden;
 
     }
