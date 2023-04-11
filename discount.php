@@ -207,7 +207,7 @@ if (!$conn) {
 			</li>
 
 			<li class="menuButton">
-				<a href="#" class="menuText">
+				<a href="promotion.php" class="menuText">
 				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32pt" height="32pt" version="1.1" viewBox="0 0 700 750">
 					<path xmlns="http://www.w3.org/2000/svg" d="m350 248.52c-68.652 0-124.31 55.625-124.31 124.29 0 68.641 55.652 124.29 124.31 124.29 68.641 0 124.29-55.652 124.29-124.29 0.015625-68.664-55.641-124.29-124.29-124.29zm44.906 193.41-44.906-23.602-44.922 23.602 8.5859-50.027-36.348-35.414 50.227-7.293 22.457-45.508 22.453 45.492 50.227 7.293-36.348 35.414z"/>
 				</svg>
