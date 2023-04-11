@@ -280,30 +280,31 @@ if (!$conn) {
         $sql = "SELECT * FROM ticket WHERE AccID=$AccID";
         $result = mysqli_query($conn, $sql);
 
-        if (mysqli_num_rows($result) > 0) {
-            // Display the ticket information in a table
-            echo "<h3>My Tickets</h3>";
-            echo "<table border=\"1\">";
-            echo "<tr><th>Ticket ID</th>
-				<th>Time</th>
-				<th>Movie Title</th>
-				<th>Seat Number</th>
-				<th>Cancel</th>
-				</tr>";
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td>" . $row['ticket_id'] . "</td>";
-                echo "<td>" . $row['time'] . "</td>";
-                echo "<td>" . $row['movieTitle'] . "</td>";
-				echo "<td>" . $row['seat'] . "</td>";
-                echo "<td><a href=\"mytickets.php?cancel=" . $row['ticket_id'] . "\">Cancel</a></td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-        } else {
-            echo "No tickets found for this user.\n";
-        }
-
+		if (mysqli_num_rows($result) > 0) {
+			// Display the ticket information in a table
+			echo "<h3 style=\"text-align: center;\">My Tickets</h3>";
+			echo "<table style=\"border-collapse: collapse; width: 100%; max-width: 600px; margin: 0 auto;\">";
+			echo "<tr style=\"background-color: #000000; font-weight: bold;\">";
+			echo "<td style=\"padding: 10px; border: 1px solid #ddd;\">Ticket ID</td>";
+			echo "<td style=\"padding: 10px; border: 1px solid #ddd;\">Time</td>";
+			echo "<td style=\"padding: 10px; border: 1px solid #ddd;\">Movie Title</td>";
+			echo "<td style=\"padding: 10px; border: 1px solid #ddd;\">Seat Number</td>";
+			echo "<td style=\"padding: 10px; border: 1px solid #ddd;\">Cancel</td>";
+			echo "</tr>";
+			while ($row = mysqli_fetch_assoc($result)) {
+				
+				echo "<tr style=\"border: 1px solid #ddd; background-color: #000000;\">";
+				echo "<td style=\"padding: 10px;\">" . $row['ticket_id'] . "</td>";
+				echo "<td style=\"padding: 10px;\">" . $row['time'] . "</td>";
+				echo "<td style=\"padding: 10px;\">" . $row['movieTitle'] . "</td>";
+				echo "<td style=\"padding: 10px;\">" . $row['seat'] . "</td>";
+				echo "<td style=\"padding: 10px;\"><a href=\"mytickets.php?cancel=" . $row['ticket_id'] . "\">Cancel</a></td>";
+				echo "</tr>";
+			}
+			echo "</table>";
+		} else {
+			echo "<p style=\"text-align: center;\">No tickets found for this user.</p>";
+		}
         mysqli_close($conn);
     ?>
 </div>

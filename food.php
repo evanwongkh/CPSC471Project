@@ -327,19 +327,20 @@ mysqli_close($conn);
             </tr>
         </thead>
         <tbody>
-            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-                <tr>
-                    <td><?php echo $row['OrderNumber']; ?></td>
-                    <td><?php echo $row['Name']; ?></td>
-                    <td><?php echo $row['Price']; ?></td>
-                    <td>
-                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <input type="hidden" name="OrderNumber" value="<?php echo $row['OrderNumber']; ?>">
-                            <input type="submit" name="cancel" value="Cancel">
-                        </form>
-                    </td>
-                </tr>
-            <?php endwhile; ?>
+			<?php while ($row = mysqli_fetch_assoc($result)) : ?>
+		<tr style="border: 1px solid #ddd;">
+			<tr style="background-color: #00000;">
+			<td style="padding: 10px;"><?php echo $row['OrderNumber']; ?></td>
+			<td style="padding: 10px;"><?php echo $row['Name']; ?></td>
+			<td style="padding: 10px;"><?php echo $row['Price']; ?></td>
+			<td style="padding: 10px;">
+				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+					<input type="hidden" name="OrderNumber" value="<?php echo $row['OrderNumber']; ?>">
+					<input type="submit" name="cancel" value="Cancel" style="background-color: #e74c3c; color: #fff; padding: 5px 10px; border: none; cursor: pointer;">
+				</form>
+			</td>
+		</tr>
+	<?php endwhile; ?>
         </tbody>
     </table>
             </div>
