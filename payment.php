@@ -287,7 +287,7 @@ mysqli_close($conn);
 		outline: none;
 		border-radius: 30px;
 		height: 50px;
-		width: 100px;
+		width: 200px;
 		background: rgba(16, 255, 0, 0.7);
 		font-size: 20px;
 		cursor: pointer;
