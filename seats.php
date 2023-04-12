@@ -63,12 +63,18 @@ if (!$conn) {
 	}
 
     .unique{
+		display: flex;
+        flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		margin-left: 6rem;
-		padding-top: 0.1vh;
+		padding-top: 5vh;
 		text-decoration: none;
     }
+
+	h3{
+		font-size: 60px;
+	}
 
 	.menu{
 		width: 5rem;
@@ -245,9 +251,8 @@ if (!$conn) {
 	</nav>
 
     <div class="unique">
-
+		<h3>Select your seat!</h3>
 	<div class="regText">
-		Select your seat!
         <?php
             // Fetch available seats for the given theatre, time, and showtime
             $theatreNo = $_GET['theatreNo'];
@@ -299,7 +304,7 @@ if (!$conn) {
             }
 
             ?>
-            <div style="display: flex; justify-content: center; padding-top: 20vh;">
+            <div style="display: flex; justify-content: center; padding-top: 5vh;">
             <?php
 
             // Display the seats in a table

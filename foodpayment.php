@@ -16,10 +16,14 @@ $conn = mysqli_connect($servername, $username, $password, $database);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-$AccID = $_SESSION['AccID'];
-$name = $_GET['name'];
-$price = $_GET['price']; 
 
+$AccID = $_SESSION['AccID'];
+if (!isset($_GET['name']) || !isset($_GET['price'])) {
+    $error = "Required information is missing.";
+} else {
+	$name = $_GET['name'];
+	$price = $_GET['price'];
+} 
 
 if (isset($_POST['submit'])) {
     $cardNumber = $_POST['cardNumber'];
@@ -104,6 +108,8 @@ mysqli_close($conn);
 	}
 
     .unique{
+		display: flex;
+        flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		margin-left: 6rem;
@@ -210,6 +216,92 @@ mysqli_close($conn);
 		width: 100%;
 	}
 
+	.paymentWindow{
+		width: 50vh;
+		height: 40vh;	
+		animation: glow 1s ease-in-out infinite alternate;
+		border: 1px #911fff solid;
+		background-color: #fff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 2vh;
+		flex-direction: column;
+		color: #911fff;
+		border-radius: 10%;
+		padding-bottom: 5vh;
+		margin-top: 20vh;
+	}
+
+	.nameandcvv{
+		display: flex;
+	}
+
+	.name{
+		width: 100%;
+		margin-right: 4vh;
+	}
+
+	.input{
+		border: 1px solid #911fff;
+		width: 30vh;
+	}
+
+	.input input{
+		width: 100%;
+		height: 2.5vh;
+		outline: 0;
+		border: 0;
+	}
+
+	.expriry{
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		padding-bottom: 3vh;
+	}
+
+	.expriry select{
+		padding: 1vh;
+	}
+
+	@keyframes glow {
+        from {
+          border-color: purple;
+          box-shadow: 0 0 10px #911fff, 0 0 20px #911fff, 0 0 30px #911fff;
+        }
+        to {
+          border-color: #a800e6;
+          box-shadow: 0 0 20px #a800e6, 0 0 30px #a800e6, 0 0 40px #a800e6;
+        }
+      }
+
+	.login{
+		border: none;
+		outline: none;
+		border-radius: 30px;
+		height: 50px;
+		width: 100px;
+		background: rgba(255, 255, 255, 0.7);
+		font-size: 20px;
+		cursor: pointer;
+		transition: .2s;
+		text-decoration: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #911fff;
+		margin-top: 1vh;
+	}
+
+	.login:hover{
+		letter-spacing: 1px;
+		color: #fff;
+		background: rgba(0, 0, 0, 0.7);
+		border-radius: 50px;
+	}
+
+
 </style>
 
 <body>
@@ -287,27 +379,47 @@ mysqli_close($conn);
 
     <div class="unique">
 
-	<div class="regText">
-		Welcome, <?php echo $_SESSION['username']; ?>! Book your movie and showtime today!
-	</div>
-
-    <h3>Payment Information</h3>
-    <?php if (isset($error)) echo "<p style='color:red'>$error</p>" ?>
+	<?php if (isset($error)) echo "<p style='color:red'>$error</p>" ?>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <input type="hidden" name="name" value="<?php echo $name; ?>">
         <input type="hidden" name="price" value="<?php echo $price; ?>">
 
-        <label for="cardNumber">Card Number:</label>
-        <input type="text" name="cardNumber" id="cardNumber" required>
-        <br>
-        <label for="expiration">Expiration Date (MM/YY):</label>
-        <input type="text" name="expiration" id="expiration" required>
-        <br>
-        <label for="cvv">CVV:</label>
-        <input type="text" name="cvv" id="cvv" required>
-        <br>
-        <input type="submit" name="submit" value="Pay <?php echo '$' . $price; ?>">
-    </form>
+	<div class="paymentWindow">
+
+		<h1>Payment</h1>
+		<div class="nameandcvv">
+
+		<div class="cardnumber">
+			<h3>Card Number(xxxxxxxxxxxxxxxx)</h3>
+				<div class="input">
+					<input type="text" name="cardNumber" id="cardNumber" required>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="cardnumbers">
+			<div class="cvv">
+			<h3>CVV(xxx)</h3>
+				<div class="input">
+					<input type="text" name="cvv" id="cvv" required>
+				</div>
+			</div>
+		</div>
+
+		<div class="exp">
+			<h3>Expiry Date(MM/YY)</h3>
+			<div class="expriry">
+				<div class="input">
+					<input type="text" name="expiration" id="expiration" required>
+				</div>
+			</div>
+		</div>
+
+		<input class="login" type="submit" name="submit" value=<?php echo "Pay:$" . $price; ?>>
+		</form>
+
+	</div>
 
 </div>
 

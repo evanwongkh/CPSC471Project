@@ -67,10 +67,12 @@ if (!$conn) {
 	}
 
     .unique{
+		display: flex;
+        flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		margin-left: 6rem;
-		padding-top: 0.1vh;
+		padding-top: 5vh;
 		text-decoration: none;
     }
 

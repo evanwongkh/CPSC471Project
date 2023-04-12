@@ -80,6 +80,8 @@ if (!$conn) {
 	}
 
     .unique{
+		display: flex;
+        flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		margin-left: 6rem;
@@ -267,7 +269,7 @@ if (!$conn) {
 	<div class="regText">
 		Welcome, <?php echo $_SESSION['username']; ?>! Here's today's promotion!
 		<h1>Check out our latest promotion!</h1>
-		<img src="https://assets-prd.ignimgs.com/2023/02/03/foevbcsayamvqpf-1675462826997.jpg" alt="Super Mario Bros movie poster" style="border: 5px solid #FF0000; animation: flashBorder 1s infinite;">
+		<img src="https://assets-prd.ignimgs.com/2023/02/03/foevbcsayamvqpf-1675462826997.jpg" alt="Super Mario Bros movie poster" style="border: 5px solid #FF0000; animation: flashBorder 1s infinite; width: 50vh; height: 70vh;">
 	</br>
 	<p><strong>Synopsis</strong></p>
 	A Brooklyn plumber named Mario travels through the Mushroom Kingdom with a princess named Peach and an anthropomorphic mushroom named Toad to find Mario's brother, Luigi, and to save the world from a ruthless fire-breathing Koopa named Bowser.

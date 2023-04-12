@@ -70,10 +70,12 @@ if (!$conn) {
 	}
 
     .unique{
+		display: flex;
+        flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		margin-left: 6rem;
-		padding-top: 0.1vh;
+		padding-top: 5vh;
 		text-decoration: none;
     }
 
@@ -174,6 +176,16 @@ if (!$conn) {
 		font-size: 50px;
 		letter-spacing: 10px;
 		width: 100%;
+	}
+
+	.cancelbutton {
+		color: red;
+		text-decoration: none;
+	}
+
+	.cancelbutton:hover {
+		color: darkred;
+		text-decoration: none;
 	}
 
 </style>
@@ -298,7 +310,7 @@ if (!$conn) {
 				echo "<td style=\"padding: 10px;\">" . $row['time'] . "</td>";
 				echo "<td style=\"padding: 10px;\">" . $row['movieTitle'] . "</td>";
 				echo "<td style=\"padding: 10px;\">" . $row['seat'] . "</td>";
-				echo "<td style=\"padding: 10px;\"><a href=\"mytickets.php?cancel=" . $row['ticket_id'] . "\">Cancel</a></td>";
+				echo "<td style=\"padding: 10px;\"><a href=\"mytickets.php?cancel=" . $row['ticket_id'] . "\" class=\"cancelbutton\" >Cancel</a></td>";
 				echo "</tr>";
 			}
 			echo "</table>";

@@ -110,6 +110,8 @@ mysqli_close($conn);
 	}
 
     .unique{
+		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		margin-left: 6rem;
@@ -215,6 +217,64 @@ mysqli_close($conn);
 		letter-spacing: 10px;
 		width: 100%;
 	}
+
+	.container {
+		max-width: 30vh;
+		margin: 0 auto;
+		padding: 2vh;
+		background-color: #fff;
+		box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+		margin-top: 15vh;
+		margin-bottom: 5vh;
+		color: #911fff;
+		border-radius: 10%;
+	}
+
+	h3 {
+		margin-bottom: 20px;
+		text-align: center;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	label {
+		margin-bottom: 5px;
+	}
+
+	select,
+	input[type="number"],
+	input[type="submit"] {
+		margin-bottom: 20px;
+		padding: 5px;
+		font-size: 20px;
+	}
+
+	#quantity{
+		width: 50%;
+	}
+
+	input[type="submit"] {
+		background-color: #09c900;
+		border: none;
+		color: white;
+		cursor: pointer;
+		font-weight: bold;
+		border-radius: 10%;
+	}
+
+	input[type="submit"]:hover {
+		background-color: #07a700;
+	}
+	
+	.table{
+		padding-bottom: 20vh;
+	}
+	
 </style>
 
 <body>
@@ -292,31 +352,28 @@ mysqli_close($conn);
 	</nav>
 
     <div class="unique">
-
-	<div class="regText">
-		Welcome, <?php echo $_SESSION['username']; ?>! Order your food!
-	</div>
-    <h3>Food Menu</h3>
-    <?php if (isset($message)) echo "<p style='color:green'>$message</p>" ?>
-    <?php if (isset($error)) echo "<p style='color:red'>$error</p>" ?>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <label for="food">Food Item:</label>
-        <select name="food" id="food" required>
-            <option value="">--Select--</option>
-            <option value="Popcorn">Popcorn ($7.00)</option>
-            <option value="Soda">Soda ($5.00)</option>
-            <option value="Candy">Candy ($4.00)</option>
-            <option value="Nachos">Nachos ($7.00)</option>
-            <option value="Hot Dog">Hot Dog ($5.00)</option>
-        </select>
-        <br>
-        <label for="quantity">Quantity:</label>
-        <input type="number" name="quantity" id="quantity" required>
-        <br>
-        <input type="submit" name="submit" value="Order">
-    </form>
+		<div class="container">
+			<h3>Food Menu</h3>
+			<?php if (isset($message)) echo "<p class='message'>$message</p>" ?>
+			<?php if (isset($error)) echo "<p class='error'>$error</p>" ?>
+			<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+				<label for="food">Food Item:</label>
+				<select name="food" id="food" required>
+					<option value="">--Select--</option>
+					<option value="Popcorn">Popcorn ($7.00)</option>
+					<option value="Soda">Soda ($5.00)</option>
+					<option value="Candy">Candy ($4.00)</option>
+					<option value="Nachos">Nachos ($7.00)</option>
+					<option value="Hot Dog">Hot Dog ($5.00)</option>
+				</select>
+				<label for="quantity">Quantity:</label>
+				<input type="number" name="quantity" id="quantity" required>
+				<input type="submit" name="submit" value="Order">
+			</form>
+		</div>
 
     <h3>Ordered Food</h3>
+	<div class="table">
     <table border="1">
         <thead>
             <tr>
@@ -344,7 +401,7 @@ mysqli_close($conn);
         </tbody>
     </table>
             </div>
-
+			</div>
 </body>
 
 </html>

@@ -71,6 +71,7 @@ if (!$conn) {
 		padding-top: 0.1vh;
 		text-decoration: none;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
     }

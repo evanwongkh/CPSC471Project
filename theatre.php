@@ -70,6 +70,8 @@ if (!$conn) {
 	}
 
     .unique{
+		display: flex;
+        flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		margin-left: 6rem;
@@ -190,6 +192,7 @@ if (!$conn) {
 		width: 35%;
 		justify-content: space-around;
 		padding-top: 5vh;
+		padding-right: 5vh;
 	}
 
 	.selection{
