@@ -17,7 +17,18 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 ?>
+    <?php
+        $AccID = $_SESSION['AccID'];
 
+        // Check if user is an admin
+        $sql = "SELECT * FROM user WHERE AccID='$AccID' AND admin=1";
+        $result = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($result) == 0) {
+            $error_message = "You do not have the necessary permissions to access this page.";
+            header("Location: dashboard.php?error_message=".urlencode($error_message));
+            exit();
+        }?>
 <!DOCTYPE html>
 <html>
 
@@ -288,17 +299,6 @@ if (!$conn) {
     <div class="unique">
 
     <?php
-        $AccID = $_SESSION['AccID'];
-
-        // Check if user is an admin
-        $sql = "SELECT * FROM user WHERE AccID='$AccID' AND admin=1";
-        $result = mysqli_query($conn, $sql);
-
-        if (mysqli_num_rows($result) == 0) {
-            $error_message = "You do not have the necessary permissions to access this page.";
-            header("Location: dashboard.php?error_message=".urlencode($error_message));
-            exit();
-        }
 
         // Add movie to database
         if (isset($_POST['submit_movie'])) {

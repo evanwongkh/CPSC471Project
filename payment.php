@@ -218,8 +218,8 @@ mysqli_close($conn);
 	}
 
 	.paymentWindow{
-		width: 50vh;
-		height: 40vh;	
+		width: 60vh;
+		height: 50vh;	
 		animation: glow 1s ease-in-out infinite alternate;
 		border: 1px #911fff solid;
 		background-color: #fff;
@@ -246,6 +246,10 @@ mysqli_close($conn);
 	.input{
 		border: 1px solid #911fff;
 		width: 30vh;
+		display: flex; 
+		justify-content: center;
+		align-items: center;
+		width: 20vw;
 		
 	}
 
@@ -283,8 +287,8 @@ mysqli_close($conn);
 		outline: none;
 		border-radius: 30px;
 		height: 50px;
-		width: 100px;
-		background: rgba(255, 255, 255, 0.7);
+		width: 200px;
+		background: rgba(16, 255, 0, 0.7);
 		font-size: 20px;
 		cursor: pointer;
 		transition: .2s;
