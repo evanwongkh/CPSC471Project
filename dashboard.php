@@ -190,7 +190,7 @@ if (!isset($_SESSION['username'])) {
 		justify-content: center;
 		align-items: center;
 		width: 100%;
-		height: 620px;
+		height: 530px;
 		transition: 0.4s;
 		z-index: 0;
 		left:2;
@@ -221,62 +221,62 @@ if (!isset($_SESSION['username'])) {
 	}
 
 	#posterspan1:target ~ .posterslider #img1{
-		width: 410px;
-		height: 620px;
+		width: 340px;
+		height: 530px;
 		background: transparent;
 	}
 	
 	#posterspan1:target ~.posterslider #button-1{
-		width: 410px;
-		height: 620px;
+		width: 340px;
+		height: 530px;
 		background-color: transparent;
 	}
 
 	#posterspan2:target ~ .posterslider #img2{
-		width: 410px;
-		height: 620px;
+		width: 340px;
+		height: 530px;
 		background: transparent;
 	}
 
 	#posterspan2:target ~.posterslider #button-2{
-		width: 410px;
-		height: 620px;
+		width: 340px;
+		height: 530px;
 		background-color: transparent;
 	}
 
 	#posterspan3:target ~ .posterslider #img3{
-		width: 410px;
-		height: 620px;
+		width: 340px;
+		height: 530px;
 		background: transparent;
 	}
 
 	#posterspan3:target ~.posterslider #button-3{
-		width: 410px;
-		height: 620px;
+		width: 340px;
+		height: 530px;
 		background-color: transparent;
 	}
 
 	#posterspan4:target ~ .posterslider #img4{
-		width: 410px;
-		height: 620px;
+		width: 340px;
+		height: 530px;
 		background: transparent;
 	}
 
 	#posterspan4:target ~.posterslider #button-4{
-		width: 410px;
-		height: 620px;
+		width: 340px;
+		height: 530px;
 		background-color: transparent;
 	}
 	
 	#posterspan5:target ~ .posterslider #img5{
-		width: 410px;
-		height: 620px;
+		width: 340px;
+		height: 530px;
 		background: transparent;
 	}
 
 	#posterspan5:target ~.posterslider #button-5{
-		width: 410px;
-		height: 620px;
+		width: 340px;
+		height: 530px;
 		background-color: transparent;
 	}
 
