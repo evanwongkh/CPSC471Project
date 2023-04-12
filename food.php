@@ -354,8 +354,6 @@ mysqli_close($conn);
     <div class="unique">
 		<div class="container">
 			<h3>Food Menu</h3>
-			<?php if (isset($message)) echo "<p class='message'>$message</p>" ?>
-			<?php if (isset($error)) echo "<p class='error'>$error</p>" ?>
 			<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 				<label for="food">Food Item:</label>
 				<select name="food" id="food" required>
